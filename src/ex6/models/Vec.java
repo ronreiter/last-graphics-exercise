@@ -1,5 +1,7 @@
 package ex6.models;
 
+import java.awt.Color;
+import java.util.Scanner;
 
 /**
  * 3D vector class that contains three doubles. Could be used to represent
@@ -17,7 +19,9 @@ public class Vec {
 	 * Initialize vector to (0,0,0)
 	 */
 	public Vec() {
-		//TODO: 
+		this.x = 0;
+		this.y = 0;
+		this.z = 0;
 	}
 
 	/**
@@ -43,9 +47,43 @@ public class Vec {
 	 *            Vector
 	 */
 	public Vec(Vec v) {
-		//TODO:
+		if (v == null) {
+			throw new IllegalArgumentException("Vector can't be null");
+		}
+			
+		this.x = v.x;
+		this.y = v.y;
+		this.z = v.z;
 	}
-
+	
+	/**
+	 * Initialize vector values from xml attribute. 
+	 * @param v xml attribute
+	 */
+	public Vec(String v) {
+		if (v == null || v == "") {
+			System.out.println("Illgal vector values");
+			System.exit(1);
+		}
+		
+		Scanner s = new Scanner(v);
+		x = s.nextDouble();
+		y = s.nextDouble();
+		z = s.nextDouble();
+	}
+	
+	
+	/**
+	 * Return the vector as color. X as red, Y as green, Z as blue.
+	 * @return
+	 */
+	public Color toColor() {
+		float r = (float) (x > 1 ? 1 : x);
+		float g = (float) (y > 1 ? 1 : y);
+		float b = (float) (z > 1 ? 1 : z);
+		return new Color(r, g, b);
+	}
+	
 	/**
 	 * Calculates the reflection of the vector in relation to a given surface
 	 * normal. The vector points at the surface and the result points away.
@@ -53,8 +91,15 @@ public class Vec {
 	 * @return The reflected vector
 	 */
 	public Vec reflect(Vec normal) {
-		//TODO:
-		return null;
+		if (normal == null) {
+			throw new IllegalArgumentException("Vector can't be null");
+		}
+		
+		Vec v = new Vec(this);
+		
+		v.sub(scale(2 * dotProd(this, normal), normal));
+		
+		return v;
 	}
 
 	/**
@@ -62,19 +107,46 @@ public class Vec {
 	 * 
 	 * @param a
 	 *            Vector
+	 * @throws IllegalArgumentException() 
 	 */
-	public void add(Vec a) {
-		//TODO:
+	public void add(Vec a) throws IllegalArgumentException {
+		if (a == null) {
+			throw new IllegalArgumentException("Vector can't be null");
+		}
+			
+		this.x += a.x;
+		this.y += a.y;
+		this.z += a.z;
+		
+		/*this.x = this.x + a.x;
+		this.y = this.y + a.y;
+		this.z = this.z + a.z;*/
 	}
 
+	/*
+	 * Add x,y,z to the vector
+	 */
+	public void add(double x, double y, double z){
+		this.x += x;
+		this.y += y;
+		this.z += z;
+	}
+	
 	/**
 	 * Subtracts from vector
 	 * 
 	 * @param a
 	 *            Vector
+	 * @throws IllegalArgumentException() 
 	 */
-	public void sub(Vec a) {
-		//TODO:
+	public void sub(Vec a) throws IllegalArgumentException {
+		if (a == null) {
+			throw new IllegalArgumentException("Vector can't be null");
+		}
+		
+		this.x -= a.x;
+		this.y -= a.y;
+		this.z -= a.z;
 	}
 	
 	/**
@@ -84,9 +156,16 @@ public class Vec {
 	 *            Scalar
 	 * @param a
 	 *            Vector
+	 * @throws IllegalArgumentException() 
 	 */
-	public void mac(double s, Vec a) {
-		//TODO:
+	public void mac(double s, Vec a) throws IllegalArgumentException {
+		if (a == null) {
+			throw new IllegalArgumentException("Vector can't be null");
+		}
+		
+		this.x += s * a.x;
+		this.y += s * a.y;
+		this.z += s * a.z;
 	}
 
 	/**
@@ -95,8 +174,10 @@ public class Vec {
 	 * @param s
 	 *            Scalar
 	 */
-	public void scale(double s) {
-		//TODO:
+	public void scale(double s) {	
+		this.x *= s;
+		this.y *= s;
+		this.z *= s;
 	}
 
 	/**
@@ -106,7 +187,13 @@ public class Vec {
 	 *            Vector
 	 */
 	public void scale(Vec a) {
-		//TODO:
+		if (a == null) {
+			throw new IllegalArgumentException("Vector can't be null");
+		}
+		
+		this.x *= a.x;
+		this.y *= a.y;
+		this.z *= a.z;
 	}
 
 	/**
@@ -115,7 +202,9 @@ public class Vec {
 	 * @return Vector
 	 */
 	public void negate() {
-		//TODO:
+		this.x *= -1;
+		this.y *= -1;
+		this.z *= -1;
 	}
 
 	/**
@@ -124,8 +213,7 @@ public class Vec {
 	 * @return Scalar
 	 */
 	public double length() {
-		//TODO:
-		return Double.NaN;
+		return Math.sqrt(this.dotProd(this));
 	}
 
 	/**
@@ -134,8 +222,7 @@ public class Vec {
 	 * @return Scalar
 	 */
 	public double lengthSquared() {
-		//TODO:
-		return Double.NaN;		
+		return this.dotProd(this);
 	}
 
 	/**
@@ -146,8 +233,11 @@ public class Vec {
 	 * @return Scalar
 	 */
 	public double dotProd(Vec a) {
-		//TODO:
-		return Double.NaN;
+		if (a == null) {
+			throw new IllegalArgumentException("Vector can't be null");
+		}
+		
+		return (this.x * a.x + this.y * a.y + this.z * a.z);
 	}
 
 	/**
@@ -156,9 +246,39 @@ public class Vec {
 	 * @throws ArithmeticException
 	 */
 	public void normalize() throws ArithmeticException {
-		//TODO:
+		double length = length();
+		
+		if (length == 0) {
+			throw new ArithmeticException("magnitude is zero.");
+		}
+		
+		scale(1/length);
 	}
 
+	/**
+	 * Normalizes vector's colors
+	 */
+	public void normalizeColor() {
+		if (this.x > 1) {
+			this.x = 1;
+		}
+		else if (this.x < 0){
+			this.x = 0;
+		}
+		if (this.y > 1) {
+			this.y = 1;
+		}
+		else if (this.y < 0){
+			this.y = 0;
+		}
+		if (this.z > 1) {
+			this.z = 1;
+		}
+		else if (this.z < 0){
+			this.z = 0;
+		}
+	}
+	
 	/**
 	 * Compares to a given vector
 	 * 
@@ -179,8 +299,18 @@ public class Vec {
 	 * @return the angle in radians in the range [0,PI]
 	 */
 	public final double angle(Vec v1) {
-		//TODO:
-		return Double.NaN;
+		if (v1 == null) {
+			throw new IllegalArgumentException("Vector can't be null");
+		}
+		
+		double s = this.length() * v1.length();
+		if (s == 0) {
+			throw new ArithmeticException("Illegal angle between vectors");
+		}
+		
+		double cross = this.dotProd(v1);
+		
+		return Math.acos(cross / s);
 	}
 
 	/**
@@ -193,8 +323,13 @@ public class Vec {
 	 * @return Vector1 x Vector2
 	 */
 	public static Vec crossProd(Vec a, Vec b) {	
-		//TODO: 
-		return null;
+		if (a == null || b == null) {
+			throw new IllegalArgumentException("Vector can't be null");
+		}
+		
+		return new Vec(a.y * b.z - a.z * b.y,
+				  a.z * b.x - a.x * b.z,
+				  a.x * b.y - a.y * b.x);
 	}
 
 	/**
@@ -207,8 +342,14 @@ public class Vec {
 	 * @return a+b
 	 */
 	public static Vec add(Vec a, Vec b) {
-		//TODO:
-		return null;
+		
+		if (a == null || b == null) {
+			throw new IllegalArgumentException("Vector can't be null");
+		}
+		
+		return new Vec( a.x + b.x,
+						a.y + b.y,
+						a.z + b.z);
 	}
 
 	/**
@@ -221,8 +362,13 @@ public class Vec {
 	 * @return a-b
 	 */
 	public static Vec sub(Vec a, Vec b) {
-		//TODO:
-		return null;
+		if (a == null || b == null) {
+			throw new IllegalArgumentException("Vector can't be null");
+		}
+		
+		return new Vec( a.x - b.x,
+						a.y - b.y,
+						a.z - b.z);
 	}
 
 	/**
@@ -233,8 +379,11 @@ public class Vec {
 	 * @return -1*a
 	 */
 	public static Vec negate(Vec a) {
-		//TODO:
-		return null;
+		if (a == null) {
+			throw new IllegalArgumentException("Vector can't be null");
+		}
+		
+		return new Vec(-1 * a.x, -1 * a.y, -1 * a.z);
 	}
 
 	/**
@@ -247,8 +396,11 @@ public class Vec {
 	 * @return s*a
 	 */
 	public static Vec scale(double s, Vec a) {
-		//TODO:
-		return null;
+		if (a == null) {
+			throw new IllegalArgumentException("Vector can't be null");
+		}
+		
+		return new Vec(s * a.x, s * a.y, s * a.z);
 	}
 
 	/**
@@ -261,8 +413,12 @@ public class Vec {
 	 * @return a.*b
 	 */
 	public static Vec scale(Vec a, Vec b) {
-		//TODO:
-		return null;
+		if (a == null || b == null) {
+			throw new IllegalArgumentException("Vector can't be null");
+		}
+		
+		return new Vec(b.x * a.x, b.y * a.y, b.z * a.z);
+		
 	}
 
 	/**
@@ -275,10 +431,26 @@ public class Vec {
 	 * @return a==b
 	 */
 	public static boolean equals(Vec a, Vec b) {
-		//TODO:
-		return false;
+		if (a == null || b == null) {
+			throw new IllegalArgumentException("Vector can't be null");
+		}
+		
+		return (a.x == b.x &&
+				a.y == b.y &&
+				a.z == b.z);
 	}
-
+	
+	/**
+	 * Returns equals for object comparsion
+	 * using that with "indexOf" function, to compare between objects.
+	 */
+	public boolean equals(Object a) {
+		if (a instanceof Vec) {
+			return equals((Vec) a); 
+		}
+		return false;
+		
+	}
 	/**
 	 * Dot product of a and b
 	 * 
@@ -289,8 +461,11 @@ public class Vec {
 	 * @return a.b
 	 */
 	public static double dotProd(Vec a, Vec b) {
-		//TODO:
-		return Double.NaN;
+		if (a == null || b == null) {
+			throw new IllegalArgumentException("Vector can't be null");
+		}
+		
+		return (b.x * a.x + b.y * a.y + b.z * a.z);
 	}
 
 	/**
