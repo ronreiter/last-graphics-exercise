@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Rsrc-Class-Path: ./ gluegen-rt.jar jogl.jar
+Class-Path: .
+Rsrc-Main-Class: ex6.App
+Main-Class: org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader
+
