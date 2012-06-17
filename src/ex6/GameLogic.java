@@ -5,6 +5,7 @@ import java.util.Random;
 
 import ex6.models.ISphericalObstacle;
 import ex6.models.Asteroid;
+import ex6.models.Spaceship;
 
 /**
  * Simple game where spaceship can be turned right or left (Model in the MVC paradigm)
@@ -12,6 +13,10 @@ import ex6.models.Asteroid;
  */
 public class GameLogic {
 	
+	private static final double LEFT_ANGLE = -4;
+	private static final double RIGHT_ANGLE = 4;
+	private static final double MIN_ANGLE = 60;
+	private static final double MAX_ANGLE = 60;
 	private double angle; //Angle in which the spaceship is headed
 	private long score; //Game score
 	private boolean isGameOver; //Has the spaceship collided with an asteroid?
@@ -25,11 +30,13 @@ public class GameLogic {
 	//TIP you can use rand.nextDouble() to get a random number between 0.0-1.0
 	
 	private LinkedList<Asteroid> asteroids; //A list containing all astroids in the game, in order of creation.
+	private Spaceship spaceship;
 	//TIP Take a look at the LinkedList methods descendingIterator() and removeAll() 
 	
 	
 	public GameLogic() {
 		//TIP you might want to get a reference to your spaceship here (because it's an ISphericalObstacle)
+		this.spaceship = spaceship;
 		restart();
 	}
 
@@ -48,9 +55,44 @@ public class GameLogic {
 	}
 	
 	private void updateAngle() {
-		//TODO use isTrunRight and isTurnLeft to change the spaceship's angle
+		// Turn left
+		if ((this.isTurnLeft) && (!this.isTurnRight)) 
+			this.refineAngle(LEFT_ANGLE);
+		
+		// Turn Right
+		if ((!this.isTurnLeft) && (this.isTurnRight))
+			this.refineAngle(RIGHT_ANGLE);
+		
+		// Get back to origin
+		if ((!this.isTurnLeft) && (!this.isTurnRight)) 
+			this.alignForward();
 	}
 	
+	// Align the spaceship to go forward
+	private void alignForward(){	
+		if(this.angle > 1)
+			this.angle -= 1;
+		else if(this.angle < 1)
+			this.angle += 1;
+		// We should 
+		this.centerAngle();
+	}
+	
+	private void centerAngle(){
+		if(this.angle > -1 && this.angle < 1)
+			this.angle = 0;
+	}
+	
+	private void refineAngle(double newAngle){
+		this.angle += newAngle;
+		
+		if(this.angle > MAX_ANGLE)
+			this.angle = MAX_ANGLE;
+		else if(this.angle < -MIN_ANGLE)
+			this.angle = MIN_ANGLE;
+		
+		this.centerAngle();
+	}
 	
 	private void updateAsteroids() {
 		//TODO Add some new asteroids (using addAsteroid)
