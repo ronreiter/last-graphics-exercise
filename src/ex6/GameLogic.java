@@ -18,6 +18,7 @@ public class GameLogic {
 	private static final double RIGHT_ANGLE = 4;
 	private static final double MIN_ANGLE = -60;
 	private static final double MAX_ANGLE = 60;
+    private static final int ASTEROIDS_ADDED_EACH_ROUND = 5;
 	private double angle; //Angle in which the spaceship is headed
 	private long score; //Game score
 	private boolean isGameOver; //Has the spaceship collided with an asteroid?
@@ -31,20 +32,18 @@ public class GameLogic {
 	//TIP you can use rand.nextDouble() to get a random number between 0.0-1.0
 	
 	private LinkedList<Asteroid> asteroids; //A list containing all astroids in the game, in order of creation.
-	private LinkedList<Asteroid> remAsteroids;
+	private LinkedList<Asteroid> asteroidsToRemove;
+	
 	private Spaceship spaceship;
-	//TIP Take a look at the LinkedList methods descendingIterator() and removeAll() 
-	private int addMeteorCount;
-	private int addMeteorEvery;
-	private double meteorSpeed;
-	private double meteorZLimit;
-	public Asteroid collisionMeteor; 
+	
+	private int asteroidCounter;
+	private int asteroidInterval;
+	private double asteroidSpeed;
+	private double limitAsteroidZ;
+	public Asteroid asteroidCollidedWith; 
 	public Vec collisionPoint;	
-	private int meteorsAddedEachTime;	
-	private double meteorMinDistance;	
-	private int meteorsCountLimit;	
-	private double initialViewerDist;	
-	private boolean isGodMode;	
+	private int asteroidLimit;	
+	private double viewerDistanceInitialValue;	
 
 	public GameLogic(Spaceship spaceship) {
 		this.spaceship = spaceship;
@@ -102,91 +101,105 @@ public class GameLogic {
 	}
 	
 	private void updateAsteroids() {
-	    this.addMeteorCount -= 1;
-	    if (this.addMeteorCount == 0) {
-	        this.addMeteorCount = this.addMeteorEvery;
+	    this.asteroidCounter--;
+	    
+	    if (this.asteroidCounter == 0) {
+	        // Time to add a new asteroid
+	        this.asteroidCounter = this.asteroidInterval;
 	        addAsteroid();
 	    }
 
-	    double angleRad = this.angle / 180.0D * Math.PI;
+	    // Calculate the new position of each asteroid
+	    double angleRad = this.angle / 180.0 * Math.PI;
 	    for (Asteroid asteroid : this.asteroids) {
-	        Vec direction = new Vec(-this.meteorSpeed * Math.sin(angleRad), 0.0D, this.meteorSpeed * Math.cos(angleRad));
+	        Vec direction = new Vec(
+	                -this.asteroidSpeed * Math.sin(angleRad),
+	                0.0,
+	                this.asteroidSpeed * Math.cos(angleRad)
+	                );
 
 	        asteroid.move(direction);
-	        if (asteroid.center().z + asteroid.radius() > this.meteorZLimit) {
-	            this.remAsteroids.add(asteroid);
+	        if (asteroid.center().z + asteroid.radius() > this.limitAsteroidZ) {
+	            // Asteroid needs to be removed (behind spaceship)
+	            this.asteroidsToRemove.add(asteroid);
 	        }
 	    }
 
-	    this.asteroids.removeAll(this.remAsteroids);
-	    this.remAsteroids.clear(); 
-	    
-		//TODO Add some new asteroids (using addAsteroid)
-
-		//TODO update position of all asteroids
-		
-		//TODO Remove asteroids behind the spaceship
+	    this.asteroids.removeAll(this.asteroidsToRemove);
+	    this.asteroidsToRemove.clear(); 
 	}
 	
 	private void checkCollision() {
-	    //TODO check if any of the asteroids has collided with the spaceship
+	    // Check if any of the asteroids has collided with the spaceship
 	    for (Asteroid asteroid : this.asteroids) {
-	        double dist = dist(asteroid, this.spaceship);
-	        if (dist <= 0.0D) {
-	            this.collisionMeteor = asteroid;
-	            this.collisionPoint = Vec.scale(0.5D, Vec.add(asteroid.center(), this.spaceship.center()));
+	        double distBetweenAsteroidAndSpaceship = dist(asteroid, this.spaceship);
+	        if (distBetweenAsteroidAndSpaceship <= 0.0) {
+	            // Collided with asteroid
+	            this.asteroidCollidedWith = asteroid;
+
+				// calculate the collision point by using an average of the centers
+	            this.collisionPoint = Vec.scale(0.5, Vec.add(asteroid.center(), this.spaceship.center()));
+
 	            this.isGameOver = true;
 	        }
 	    }
 	}
 	
 	private void addAsteroid() {
-		//TODO add a new asteroid to the game
-		//TIP you don't have to check that two asteroids don't intersect, it's ok if they do.
+		// Add a new asteroid to the game
 	    
-	    if (this.asteroids.size() >= this.meteorsCountLimit)
+	    // Too many asteroids
+	    if (this.asteroids.size() >= this.asteroidLimit)
 	        return;
-	    int maxAttempts = 20;
-
-	    for (int k = 0; k < this.meteorsAddedEachTime; k++)
+	    
+	    for (int k = 0; k < ASTEROIDS_ADDED_EACH_ROUND; k++)
 	    {
-	        int i = 0; if (i < 20) {
-	            double r = 0.5D + this.rand.nextDouble();
-	            double angleRad = 3.0D * (this.rand.nextDouble() - 0.5D) * 60.0D / 180.0D * Math.PI;
-	            double x = this.initialViewerDist * Math.sin(angleRad);
-	            double y = this.rand.nextDouble() - 0.5D;
-	            double z = -this.initialViewerDist * Math.cos(angleRad);
-	            Asteroid newMeteor = new Asteroid(new Vec(x, y, z), r);
-
-	            this.asteroids.add(newMeteor);
-	        }
+	        // Choose a random radius
+            double radius = 0.3 + this.rand.nextDouble();
+            double angleRadius = 3.0 * (this.rand.nextDouble() - 0.5) * 60.0 / 180.0 * Math.PI;
+            
+            // Choose a random location (X/Y/Z)
+            double x = this.viewerDistanceInitialValue * Math.sin(angleRadius);
+            double y = this.rand.nextDouble() - 0.3;
+            double z = -this.viewerDistanceInitialValue * Math.cos(angleRadius);
+            
+            // Add the asteroid itself
+            Asteroid asteroidToAdd = new Asteroid(new Vec(x, y, z), radius, true);
+            this.asteroids.add(asteroidToAdd);
 	    } 
 	}
 	
 	private double dist(ISphericalObstacle a, ISphericalObstacle b) {
-		//TODO calculate the distance between these two obstacles
+		// Calculate the distance between these two obstacles
 	    return Vec.sub(a.center(), b.center()).length() - a.radius() - b.radius();
 	}
 
 	public void restart() {
-		//TODO this function should set the game logic to its initial values at startup and when 'r' is pressed.
-	    this.asteroids = new LinkedList();
-	    this.remAsteroids = new LinkedList();
-	    this.angle = 0.0D;
-	    this.addMeteorEvery = 1;
-	    this.addMeteorCount = this.addMeteorEvery;
-	    this.meteorsAddedEachTime = 5;
-	    this.meteorSpeed = 0.1D;
-	    this.meteorZLimit = 50.0D;
-	    this.meteorMinDistance = 20.0D;
-	    this.meteorsCountLimit = 1000;
-	    this.initialViewerDist = 300.0D;
+	    // Initialize game logic
+	    
+	    this.asteroids = new LinkedList<Asteroid>();
+	    this.asteroidsToRemove = new LinkedList<Asteroid>();
+	    
+	    this.angle = 0.0;
+	    
+	    // Controls how new asteroids appear
+	    this.asteroidInterval = 1;
+	    this.asteroidCounter = this.asteroidInterval;
+	    this.asteroidLimit = 100;
+	    
+	    this.asteroidSpeed = 0.2;
+	    this.limitAsteroidZ = 50;
+	    
+	    this.viewerDistanceInitialValue = 350;
+	    
 	    this.collisionPoint = null;
-	    this.collisionMeteor = null;
-	    this.isPaused = false;
-	    this.score = 0L;
-	    this.isGodMode = false;
+	    this.asteroidCollidedWith = null;
+	    
+	    this.score = 0;
+	    
+	    this.isGhostMode = false;
 	    this.isGameOver = false;
+	    this.isPaused = false;
  
 	}
 	

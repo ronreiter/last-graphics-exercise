@@ -20,7 +20,9 @@ import java.util.LinkedList;
  * An OpenGL model viewer (View in the MVC paradigm)
  */
 public class Viewer implements GLEventListener {
-	
+	private final static double VIEW_DISTANCE = 20000.0;
+	private final static double PADDING = 5.0;
+
 	private GameLogic game; //The game's state
 	private FPSAnimator ani; //An animator object to redraw the scene every fraction of a second
 
@@ -36,28 +38,21 @@ public class Viewer implements GLEventListener {
 		//TIP you might want to get the spaceship here from outside
 		this.game = game;
 		this.spaceship = spaceship;
-		this.spaceshipMark = new Asteroid(spaceship.center(), spaceship.radius());
+		this.spaceshipMark = new Asteroid(spaceship.center(), spaceship.radius(), false);
 	}
 	
 	@Override
 	public void display(GLAutoDrawable drawable) {
-		game.update();
-
-		//TODO render everything: sky, spaceship (maybe with marker), asteroids, collision line, info text.
-		//TIP don't forget to setup the camera, so everything you need would be drawn inside the viewing volume.
-		//TIP Always keep track (on a piece of paper) where are your model objects are positioned, and where is their corresponding world view position.
-		//TIP If 3D spheres look weird with blending, try activating back face culling. Then the back face won't be blended.
-		//TIP Keep the sky far enough, so it doesn't obscure objects. You can even disable writing to depth buffer while rendering the sky.
-		//TIP The sky's, ship's and astroid belt's rotation coefficients don't have to be exactly the same.
-
 		if (this.isReshape) {
 			reshape(drawable, 0, 0, drawable.getWidth(), drawable.getHeight());
 			this.isReshape = false;
 		}
 
-		GL gl = drawable.getGL();
-		this.game.update();
+		// move the game
+		game.update();
 
+		// start drawing
+		GL gl = drawable.getGL();
 		gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
 		gl.glMatrixMode(GL.GL_MODELVIEW);
 		gl.glLoadIdentity();
@@ -66,126 +61,141 @@ public class Viewer implements GLEventListener {
 		GLUquadric quad = glu.gluNewQuadric();
 		glu.gluQuadricTexture(quad, true);
 
-		gl.glLightfv(GL.GL_LIGHT0, GL.GL_DIFFUSE, new float[] { 1.0F, 1.0F, 1.0F, 1.0F }, 0);
-		gl.glLightfv(GL.GL_LIGHT0, GL.GL_AMBIENT, new float[] { 0.0F, 0.0F, 0.0F, 0.0F }, 0);
-		gl.glLightfv(GL.GL_LIGHT0, GL.GL_SPECULAR, new float[] { 0.0F, 0.0F, 0.0F, 0.0F }, 0);
-		gl.glLightfv(GL.GL_LIGHT0, GL.GL_POSITION, new float[] { 0.0F, 0.0F, 0.0F, 1.0F }, 0);
-
-		gl.glLightfv(GL.GL_LIGHT1, GL.GL_DIFFUSE, new float[] { 0.7F, 0.7F, 0.7F, 1.0F }, 0);
-		gl.glLightfv(GL.GL_LIGHT1, GL.GL_AMBIENT, new float[] { 1.0F, 1.0F, 1.0F, 1.0F }, 0);
-		gl.glLightfv(GL.GL_LIGHT1, GL.GL_SPECULAR, new float[] { 1.0F, 1.0F, 1.0F, 1.0F }, 0);
-		gl.glLightfv(GL.GL_LIGHT1, GL.GL_POSITION, new float[] { 3.0F, 10.0F, -10.0F, 1.0F }, 0);
-
-		gl.glLightfv(GL.GL_LIGHT2, GL.GL_DIFFUSE, new float[] { 1.0F, 1.0F, 1.0F, 1.0F }, 0);
-		gl.glLightfv(GL.GL_LIGHT2, GL.GL_AMBIENT, new float[] { 1.0F, 1.0F, 1.0F, 1.0F }, 0);
-		gl.glLightfv(GL.GL_LIGHT2, GL.GL_SPECULAR, new float[] { 0.0F, 0.0F, 0.0F, 1.0F }, 0);
-		gl.glLightfv(GL.GL_LIGHT2, GL.GL_POSITION, new float[] { 5.0F, 10.0F, -10.0F, 1.0F }, 0);
-
+		// create a light for the stars
+		gl.glLightfv(GL.GL_LIGHT0, GL.GL_DIFFUSE, new float[] { 50.0F, 50.0F, 50.0F, 50.0F }, 0);
+		gl.glLightfv(GL.GL_LIGHT0, GL.GL_POSITION, new float[] { 0.0F, 0.0F, 10.0F, 0.0F }, 0);
 		gl.glEnable(GL.GL_LIGHT0);
+
 		gl.glDepthMask(false);
 		gl.glPushMatrix();
+
+		// draw the stars using a sphere
 		Textures.starsTexture.bind();
 		Textures.starsTexture.enable();
-		gl.glMaterialfv(GL.GL_FRONT_AND_BACK, GL.GL_DIFFUSE, new float[]{1.0F, 1.0F, 1.0F, 1.0F}, 0);
-		gl.glMaterialfv(GL.GL_FRONT_AND_BACK, GL.GL_AMBIENT, new float[]{0.0F, 0.0F, 0.0F, 0.2F}, 0);
-		gl.glRotated(1.3D * this.game.getAngle(), 0.0D, 0.0D, 1.0D);
-		gl.glRotated(this.game.getAngle(), 0.0D, 1.0D, 0.0D);
-		gl.glRotated(90.0D, 1.0D, 0.0D, 0.0D);
-		glu.gluSphere(quad, 100.0D, 32, 32);
+
+		gl.glMaterialfv(GL.GL_FRONT_AND_BACK, GL.GL_DIFFUSE, new float[] { 1.0F, 1.0F, 1.0F, 1.0F }, 0);
+		gl.glMaterialfv(GL.GL_FRONT_AND_BACK, GL.GL_AMBIENT, new float[] { 0.0F, 0.0F, 0.0F, 0.2F }, 0);
+
+		// rotate the stars according to the ship angle
+		gl.glRotated(this.game.getAngle(), 0.0, 1.0, 0.0);
+
+		// rotate the sphere a bit so we won't see the top of it (which looks bad)
+		gl.glRotated(90.0, 1.0, 0.0, 0.0);
+		glu.gluSphere(quad, 100.0, 15, 15);
+
 		Textures.starsTexture.disable();
 		gl.glPopMatrix();
 		gl.glDepthMask(true);
+
 		gl.glDisable(GL.GL_LIGHT0);
 
-		gl.glTranslated(0.0D, -1.3D, -8.0D);
+		// move the spaceship and the rest of the objects (collision line and collision sphere)
+		gl.glTranslated(0.0, -1.5, -5.0);
 
+		// draw the ship
 		if (this.isShowShip) {
 			gl.glPushMatrix();
-			gl.glEnable(GL.GL_LIGHT1);
-			gl.glRotated(-1.0D * this.game.getAngle(), 0.0D, 0.0D, 1.0D);
-			gl.glRotated(90.0D, 0.0D, 1.0D, 0.0D);
-			gl.glRotated(-90.0D, 1.0D, 0.0D, 0.0D);
+
+			gl.glRotated(-1.0 * this.game.getAngle(), 0.0, 0.0, 1.0);
+			gl.glRotated(90.0, 0.0, 1.0, 0.0);
+
 			this.spaceship.render(gl);
-			gl.glDisable(GL.GL_LIGHT1);
+
 			gl.glPopMatrix();
 		}
 
-		gl.glEnable(GL.GL_LIGHT2);
 		gl.glDepthMask(false);
 		gl.glEnable(GL.GL_CULL_FACE);
 		gl.glPushMatrix();
-		gl.glRotated(0.5D * this.game.getAngle(), 0.0D, 0.0D, 1.0D);
-		gl.glRotated(this.game.getAngle(), 0.0D, 1.0D, 0.0D);
-		LinkedList meteors = this.game.getAsteroids();
-		for (Iterator iter = meteors.descendingIterator(); iter.hasNext(); ) {
-			Asteroid asteroid = (Asteroid)iter.next();
+
+		gl.glRotated(0.5 * this.game.getAngle(), 0.0, 0.0, 1.0);
+		gl.glRotated(this.game.getAngle(), 0.0, 1.0, 0.0);
+
+		// render the asteroids
+		for (Asteroid asteroid : this.game.getAsteroids())  {
 			asteroid.render(gl);
 		}
-		gl.glMaterialfv(GL.GL_FRONT_AND_BACK, GL.GL_AMBIENT, new float[] { 0.0F, 0.0F, 0.0F, 0.2F }, 0);
+
 		gl.glPopMatrix();
+
 		gl.glDisable(GL.GL_CULL_FACE);
 		gl.glDepthMask(true);
 
 		if (this.isShipMark) {
 			gl.glPushMatrix();
-			gl.glRotated(-1.0D * this.game.getAngle(), 0.0D, 0.0D, 1.0D);
-			gl.glRotated(90.0D, 0.0D, 1.0D, 0.0D);
-			gl.glRotated(-90.0D, 1.0D, 0.0D, 0.0D);
+			gl.glRotated(-1.0 * this.game.getAngle(), 0.0, 0.0, 1.0);
 			this.spaceshipMark.render(gl);
 			gl.glPopMatrix();
 		}
 
+		gl.glDisable(GL.GL_DEPTH_TEST);
+		gl.glDisable(GL.GL_LIGHTING);
+
+		// draw the collision line
 		if (this.game.collisionPoint != null) {
 			gl.glPushMatrix();
-			gl.glPointSize(3.0F);
-			gl.glRotated(0.5D * this.game.getAngle(), 0.0D, 0.0D, 1.0D);
-			gl.glRotated(this.game.getAngle(), 0.0D, 1.0D, 0.0D);
-			gl.glDisable(GL.GL_DEPTH_TEST);
-			gl.glDisable(GL.GL_LIGHTING);
+
+			gl.glPointSize(5.0F);
+			gl.glRotated(0.5F * this.game.getAngle(), 0.0, 0.0, 1.0);
+			gl.glRotated(this.game.getAngle(), 0.0, 1.0, 0.0);
+
+			// draw the collision line
 			gl.glBegin(GL.GL_LINES);
-			gl.glColor3d(1.0D, 1.0D, 0.0D);
-			gl.glVertex3d(this.game.collisionMeteor.center().x, this.game.collisionMeteor.center().y, this.game.collisionMeteor.center().z);
+			gl.glColor3d(1.0, 1.0, 0.0);
+			gl.glVertex3d(this.game.asteroidCollidedWith.center().x, this.game.asteroidCollidedWith.center().y, this.game.asteroidCollidedWith.center().z);
 			gl.glVertex3d(this.spaceship.center().x, this.spaceship.center().y, this.spaceship.center().z);
 			gl.glEnd();
+
+			// draw the collision points
 			gl.glBegin(GL.GL_POINTS);
-			gl.glColor3d(1.0D, 0.0D, 0.0D);
+			gl.glColor3d(1.0, 0.0, 0.0);
 			gl.glVertex3d(this.game.collisionPoint.x, this.game.collisionPoint.y, this.game.collisionPoint.z);
+			gl.glVertex3d(this.spaceship.center().x, this.spaceship.center().y, this.spaceship.center().z);
+			gl.glVertex3d(this.game.asteroidCollidedWith.center().x, this.game.asteroidCollidedWith.center().y, this.game.asteroidCollidedWith.center().z);
 			gl.glEnd();
-			gl.glEnable(GL.GL_DEPTH_TEST);
-			gl.glEnable(GL.GL_LIGHTING);
+
 			gl.glPopMatrix();
 		}
 
-		gl.glDisable(GL.GL_LIGHT2);
-
-		gl.glDisable(GL.GL_DEPTH_TEST);
-		gl.glDisable(GL.GL_LIGHTING);
 		GLUT glut = new GLUT();
-		int lh = glut.glutBitmapWidth(7, 'H') + 5;
-		gl.glColor3d(0.0D, 0.5D, 0.0D);
-		gl.glWindowPos2d(5.0D, 5 + 2 * lh);
-		glut.glutBitmapString(7, "Score: " + this.game.getScore());
-		gl.glWindowPos2d(5.0D, 5 + lh);
-		glut.glutBitmapString(7, "Asteroids: " + this.game.getAsteroidCount());
-		gl.glColor3d(0.3D, 0.3D, 0.1D);
-		gl.glWindowPos2d(5.0D, 5.0D);
-		glut.glutBitmapString(7, "Controls: s,m,g,p,j,r,->,<-");
+		int lineHeight = glut.glutBitmapWidth(7, 'H') + 5;
 
+		// green color (dashboard)
+		gl.glColor3d(0.0, 1.0, 0.0);
+
+		gl.glWindowPos2d(PADDING, PADDING + lineHeight * 3);
+		glut.glutBitmapString(7, "Score: " + this.game.getScore());
+
+		gl.glWindowPos2d(PADDING, PADDING + lineHeight * 2);
+		glut.glutBitmapString(7, "Asteroids: " + this.game.getAsteroidCount());
+
+
+		// tutorial
+		gl.glColor3d(1.0, 1.0, 1.0);
+
+		gl.glWindowPos2d(PADDING, PADDING + lineHeight);
+		glut.glutBitmapString(7, "Use arrows to move. Controls:");
+
+		gl.glWindowPos2d(PADDING, PADDING);
+		glut.glutBitmapString(7, "(S)how Ship, Show (M)ark, (G)host Mode, (P)ause Game, Pro(j)ection Mode, (R)estart");
+
+		// notifications
 		if ((this.game.isGhostMode()) && (!this.game.isPaused())) {
-			gl.glColor3d(0.0D, 1.0D, 0.0D);
-			gl.glWindowPos2d(5.0D, 5 + 3 * lh);
-			glut.glutBitmapString(8, "GHOST MODE");
+			gl.glColor3d(0.0, 1.0, 0.0);
+			gl.glWindowPos2d(PADDING, PADDING + lineHeight * 4);
+			glut.glutBitmapString(8, "Ghost mode on");
 		}
 		if (this.game.isGameOver()) {
-			gl.glColor3d(1.0D, 0.0D, 0.0D);
-			gl.glWindowPos2d(5.0D, 5 + 3 * lh);
-			glut.glutBitmapString(8, "GAME OVER");
+			gl.glColor3d(1.0, 0.0, 0.0);
+			gl.glWindowPos2d(PADDING, PADDING + lineHeight * 4);
+			glut.glutBitmapString(8, "GAME OVER!");
 		}
 		if ((this.game.isPaused()) && (!this.game.isGameOver())) {
-			gl.glColor3d(1.0D, 1.0D, 0.0D);
-			gl.glWindowPos2d(5.0D, 5 + 3 * lh);
-			glut.glutBitmapString(8, "PAUSED");
+			gl.glColor3d(1.0, 1.0, 0.0);
+			gl.glWindowPos2d(PADDING, PADDING + lineHeight * 4);
+			glut.glutBitmapString(8, "Game Paused");
 		}
+
 		gl.glEnable(GL.GL_LIGHTING);
 		gl.glEnable(GL.GL_DEPTH_TEST);
 
@@ -200,7 +210,6 @@ public class Viewer implements GLEventListener {
 	@Override
 	public void init(GLAutoDrawable drawable) {
 		drawable.setGL(new javax.media.opengl.DebugGL(drawable.getGL()));
-		//TODO initialization: lights, blending, textures, animation, general parameters etc.
 
 		drawable.setGL(new DebugGL(drawable.getGL()));
 		GL gl = drawable.getGL();
@@ -209,10 +218,10 @@ public class Viewer implements GLEventListener {
 		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
 
 		gl.glLightModeli(GL.GL_LIGHT_MODEL_TWO_SIDE, GL.GL_TRUE);
-		gl.glEnable(GL.GL_NORMALIZE);
 		gl.glEnable(GL.GL_DEPTH_TEST);
-		gl.glDepthFunc(GL.GL_LEQUAL);
+		gl.glEnable(GL.GL_NORMALIZE);
 
+		gl.glDepthFunc(GL.GL_LEQUAL);
 		gl.glEnable(GL.GL_LIGHTING);
 
 		Textures.load();
@@ -223,52 +232,39 @@ public class Viewer implements GLEventListener {
 
 		this.ani = new FPSAnimator(30, true);
 		this.ani.add(drawable);
-		startAnimation();
+		this.ani.start();
 	}
 
 	@Override
 	public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {
-		setProjection(drawable, width, height);
-
-		GL gl = drawable.getGL();
 		double aspectRatio;
 		double newScreenWidth;
 		double newScreenHeight;
 
+		// calculate the aspect ratio, the width and the height
 		if (height < width) {
 			aspectRatio = Double.valueOf(height) / Double.valueOf(width);
-			newScreenWidth = 20.0D;
-			newScreenHeight = 20.0D * aspectRatio;
+			newScreenWidth = 20.0;
+			newScreenHeight = 20.0 * aspectRatio;
 		} else {
 			aspectRatio = Double.valueOf(width) / Double.valueOf(height);
-			newScreenWidth = 20.0D * aspectRatio;
-			newScreenHeight = 20.0D;
+			newScreenWidth = 20.0 * aspectRatio;
+			newScreenHeight = 20.0;
 		}
 
+		GL gl = drawable.getGL();
 		gl.glMatrixMode(GL.GL_PROJECTION);
 		gl.glLoadIdentity();
 
 		if (this.isOrthographic) {
-			gl.glOrtho(-newScreenWidth, newScreenWidth, -newScreenHeight, newScreenHeight, -20000.0D, 20000.0D);
-			gl.glRotated(90.0D, 1.0D, 0.0D, 0.0D);
-			gl.glTranslated(0.0D, -1.0D, Math.sqrt(aspectRatio) * 20.0D);
+			gl.glOrtho(-newScreenWidth, newScreenWidth, -newScreenHeight, newScreenHeight, -VIEW_DISTANCE, VIEW_DISTANCE);
+			gl.glRotated(90.0, 1.0, 0.0, 0.0);
+			gl.glTranslated(0.0, -1.0, Math.sqrt(aspectRatio) * 20.0);
 		} else {
 			GLU glu = new GLU();
-			glu.gluPerspective(60.0D, width / height, 1.0D, 20000.0D);
+			glu.gluPerspective(60.0, width / height, 1.0, VIEW_DISTANCE);
 		}
 		gl.glMatrixMode(GL.GL_MODELVIEW);
-	}
-	
-	private void setProjection(GLAutoDrawable drawable, int width, int height) {
-		//TODO set the appropriate projection
-	}
-
-	public void startAnimation() {
-		ani.start();
-	}
-
-	public void stopAnimation() {
-		ani.stop();
 	}
 	
 	public void toggleShip() {

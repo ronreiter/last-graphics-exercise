@@ -65,6 +65,7 @@ public class Spaceship implements ISphericalObstacle {
 		lightPositions.add(new float[] {5, 2, 0, 1});
 		lightPositions.add(new float[] {-5, 2, 0, 1});
 
+		this.body.subdivide(3);
 	}
 
 	public Vec center() {

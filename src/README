@@ -1,0 +1,7 @@
+* Implemented Asteroid as implementing the IRenderable and ISphericalObstacle - this means it implements the center/radius methods that allow us to detect collision
+* Spaceship class - used from previous exercise
+* App - Same code as provided in code sample
+* Textures - Loads resources from file
+* GameLogic - Implemented almost all methods as included in code sample (stub); created asteroids randomly, while only adding asteroids every few intervals (while updating their location). When updating the location, calculates their location to see if they're behind the ship - and if so, remove them (to make room for new asteroids).
+* Viewer - Same as in GameLogic - Implemented almost all methods as included in code sample. Does all of the drawings of the spaceship (calls the spaceship's draw functionalities), sky (stars) and asteroids.
+
