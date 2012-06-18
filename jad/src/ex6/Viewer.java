@@ -2,10 +2,10 @@
 /*     */ 
 /*     */ import com.sun.opengl.util.FPSAnimator;
 /*     */ import com.sun.opengl.util.GLUT;
-/*     */ import com.sun.opengl.util.texture.Texture;
+/*     */
 /*     */ import ex6.models.Meteorite;
 /*     */ import ex6.models.Spaceship;
-/*     */ import ex6.models.Vec;
+/*     */
 /*     */ import java.util.Iterator;
 /*     */ import java.util.LinkedList;
 /*     */ import javax.media.opengl.DebugGL;
@@ -77,15 +77,15 @@
 /*  89 */     gl.glEnable(16384);
 /*  90 */     gl.glDepthMask(false);
 /*  91 */     gl.glPushMatrix();
-/*  92 */     Textures.texStars.bind();
-/*  93 */     Textures.texStars.enable();
+/*  92 */     Textures.starsTexture.bind();
+/*  93 */     Textures.starsTexture.enable();
 /*  94 */     gl.glMaterialfv(1032, 4609, new float[] { 1.0F, 1.0F, 1.0F, 1.0F }, 0);
 /*  95 */     gl.glMaterialfv(1032, 4608, new float[] { 0.0F, 0.0F, 0.0F, 0.2F }, 0);
 /*  96 */     gl.glRotated(1.333333333333333D * this.game.getAngle(), 0.0D, 0.0D, 1.0D);
 /*  97 */     gl.glRotated(this.game.getAngle(), 0.0D, 1.0D, 0.0D);
 /*  98 */     gl.glRotated(90.0D, 1.0D, 0.0D, 0.0D);
 /*  99 */     glu.gluSphere(quad, 100.0D, 32, 32);
-/* 100 */     Textures.texStars.disable();
+/* 100 */     Textures.starsTexture.disable();
 /* 101 */     gl.glPopMatrix();
 /* 102 */     gl.glDepthMask(true);
 /* 103 */     gl.glDisable(16384);

@@ -39,7 +39,7 @@
 /* 44 */     if (!this.isChecker) {
 /* 45 */       gl.glMaterialfv(1032, 4609, this.colorDiffuse, 0);
 /* 46 */       gl.glMaterialfv(1032, 4608, this.colorAmbient, 0);
-/* 47 */       this.tex = Textures.texMeteor;
+/* 47 */       this.tex = Textures.meteorTexture;
 /*    */     } else {
 /* 49 */       gl.glMaterialfv(1032, 4609, new float[] { 0.5F, 0.5F, 0.5F, 0.2F }, 0);
 /* 50 */       gl.glMaterialfv(1032, 4608, new float[] { 0.5F, 0.5F, 0.5F, 0.2F }, 0);

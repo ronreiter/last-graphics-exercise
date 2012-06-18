@@ -10,7 +10,7 @@ import javax.media.opengl.glu.GLUquadric;
  * A simple axes dummy 
  *
  */
-public class Spaceship implements IRenderable {	
+public class Spaceship implements ISphericalObstacle {
 
 	private boolean lightSpheresVisible = false;
 	private Mesh body;
@@ -36,6 +36,12 @@ public class Spaceship implements IRenderable {
 	private static final float[] LIGHT_SPECULAR_COLOR = new float[] {5f, 5f, 5f, 1f};
 	private static final float LIGHT_ATTENUATION = 1.0f;
 
+	public static final int SPACESHIP_RADIUS = 100;
+
+	// spherical properties
+	private Vec center = new Vec();
+	private double radius = 0;
+
 
 	public Spaceship() {
 		ArrayList<int[]> faces = new ArrayList<int[]>();
@@ -59,6 +65,22 @@ public class Spaceship implements IRenderable {
 		lightPositions.add(new float[] {5, 2, 0, 1});
 		lightPositions.add(new float[] {-5, 2, 0, 1});
 
+	}
+
+	public Vec center() {
+		return center;
+	}
+
+	public void setCenter(Vec center) {
+		this.center = center;
+	}
+
+	public double radius() {
+		return radius;
+	}
+
+	public void setRadius(double radius) {
+		this.radius = radius;
 	}
 
 	public void render(GL gl) {

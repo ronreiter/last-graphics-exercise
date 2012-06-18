@@ -2,7 +2,7 @@
 /*     */ 
 /*     */ import com.sun.opengl.util.texture.Texture;
 /*     */ import ex6.Textures;
-/*     */ import java.util.ArrayList;
+/*     */
 /*     */ import java.util.Random;
 /*     */ import javax.media.opengl.GL;
 /*     */ import javax.media.opengl.glu.GLU;
@@ -37,7 +37,7 @@
 /*     */   }
 /*     */ 
 /*     */   public void render(GL gl) {
-/*  43 */     this.texEngine = Textures.texSpaceshipEngine;
+/*  43 */     this.texEngine = Textures.engineText;
 /*     */ 
 /*  45 */     gl.glMatrixMode(5888);
 /*     */ 
