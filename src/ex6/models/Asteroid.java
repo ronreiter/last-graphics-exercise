@@ -1,6 +1,7 @@
 package ex6.models;
 
 import com.sun.opengl.util.texture.Texture;
+import ex6.Textures;
 
 import javax.media.opengl.GL;
 import javax.media.opengl.glu.GLU;
@@ -19,7 +20,6 @@ public class Asteroid implements IRenderable, ISphericalObstacle {
 
 	private float[] diffuseColor;
 	private float[] ambientColor;
-	private Texture texture;
 
 	public Asteroid(Vec center, double radius) {
 		this.center = center;
@@ -45,6 +45,8 @@ public class Asteroid implements IRenderable, ISphericalObstacle {
 	
 	@Override
 	public void render(GL gl) {
+		Texture texture = Textures.asteroidTexture;
+
 		gl.glMaterialfv(1032, 4609, new float[] { 0.5F, 0.5F, 0.5F, 0.2F }, 0);
 		gl.glMaterialfv(1032, 4608, new float[] { 0.5F, 0.5F, 0.5F, 0.2F }, 0);
 

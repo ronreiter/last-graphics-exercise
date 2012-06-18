@@ -32,11 +32,11 @@ public class Viewer implements GLEventListener {
 	private Spaceship spaceship;
 	private Asteroid testAsteroid;
 	
-	public Viewer(GameLogic game) {
+	public Viewer(GameLogic game, Spaceship spaceship) {
 		//TIP you might want to get the spaceship here from outside
 		this.game = game;
 		this.spaceship = spaceship;
-		this.testAsteroid = new Asteroid(spaceship.center(), Spaceship.SPACESHIP_RADIUS);
+		this.testAsteroid = new Asteroid(spaceship.center(), spaceship.radius());
 	}
 	
 	@Override
@@ -121,7 +121,7 @@ public class Viewer implements GLEventListener {
 		gl.glPushMatrix();
 		gl.glRotated(0.5D * this.game.getAngle(), 0.0D, 0.0D, 1.0D);
 		gl.glRotated(this.game.getAngle(), 0.0D, 1.0D, 0.0D);
-		LinkedList meteors = this.game.getMeteors();
+		LinkedList meteors = this.game.getAsteroids();
 		for (Iterator iter = meteors.descendingIterator(); iter.hasNext(); ) {
 			Asteroid asteroid = (Asteroid)iter.next();
 			asteroid.render(gl);
@@ -171,12 +171,12 @@ public class Viewer implements GLEventListener {
 		gl.glWindowPos2d(5.0D, 5 + 2 * lh);
 		glut.glutBitmapString(7, "Score: " + this.game.getScore());
 		gl.glWindowPos2d(5.0D, 5 + lh);
-		glut.glutBitmapString(7, "Asteroids: " + this.game.getMeteorCount());
+		glut.glutBitmapString(7, "Asteroids: " + this.game.getAsteroidCount());
 		gl.glColor3d(0.3D, 0.3D, 0.1D);
 		gl.glWindowPos2d(5.0D, 5.0D);
 		glut.glutBitmapString(7, "Controls: s,m,g,p,j,r,->,<-");
 
-		if ((this.game.isGodMode()) && (!this.game.isPaused())) {
+		if ((this.game.isGhostMode()) && (!this.game.isPaused())) {
 			gl.glColor3d(0.0D, 1.0D, 0.0D);
 			gl.glWindowPos2d(5.0D, 5 + 3 * lh);
 			glut.glutBitmapString(8, "GHOST MODE");

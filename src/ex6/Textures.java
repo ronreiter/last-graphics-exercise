@@ -14,7 +14,7 @@ import java.io.IOException;
 
 public class Textures {
 	public static Texture engineTexture;
-	public static Texture meteorTexture;
+	public static Texture asteroidTexture;
 	public static Texture starsTexture;
 
 	public static void load() {
@@ -26,7 +26,7 @@ public class Textures {
 			starsTexture = TextureIO.newTexture(starsTexturesFile, true);
 
 			File meteorTextureFile = new File(texturePath, "asteroid.jpg");
-			meteorTexture = TextureIO.newTexture(meteorTextureFile, true);
+			asteroidTexture = TextureIO.newTexture(meteorTextureFile, true);
 
 			File engineTextureFile = new File(texturePath, "fire.jpg");
 			engineTexture = TextureIO.newTexture(engineTextureFile, true);

@@ -9,6 +9,8 @@ import java.awt.event.WindowEvent;
 
 import javax.media.opengl.GLCanvas;
 
+import ex6.models.Spaceship;
+
 
 /**
  * Entry point of the game, and also user IO handler (Controller in the MVC paradigm)
@@ -20,6 +22,7 @@ public class App {
 	private static GLCanvas canvas;
 	private static GameLogic game;
 	private static Viewer viewer;
+	private static Spaceship spaceship;
 	
 	/**
 	 * Create frame, canvas and viewer, and load the first model.
@@ -33,9 +36,10 @@ public class App {
 		
 		// Create game logic and viewer
 		//TIP you might want to create a spaceship here and pass it to the game and viewer
-		game = new GameLogic();
-		viewer = new Viewer(game);
-		
+		spaceship = new Spaceship();
+		game = new GameLogic(spaceship);
+		viewer = new Viewer(game, spaceship);
+
 		canvas = new GLCanvas();
 		
 		frame.setSize(500, 500);
