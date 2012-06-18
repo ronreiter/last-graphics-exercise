@@ -58,21 +58,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Textures.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ex6/Textures.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="0" selection-start="194" selection-end="194" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Viewer.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Viewer.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ex6/Viewer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="249" column="40" selection-start="8461" selection-end="8461" vertical-scroll-proportion="0.4004193">
+            <state line="142" column="41" selection-start="5649" selection-end="5665" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -80,10 +69,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GameLogic.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ex6/GameLogic.java">
+      <file leaf-file-name="Vec.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ex6/models/Vec.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="182" column="20" selection-start="5733" selection-end="5733" vertical-scroll-proportion="0.0">
+            <state line="3" column="26" selection-start="69" selection-end="69" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Mesh.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ex6/models/Mesh.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="11" column="13" selection-start="383" selection-end="383" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -100,10 +98,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Spaceship.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="Spaceship.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ex6/models/Spaceship.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="73" column="16" selection-start="2201" selection-end="2201" vertical-scroll-proportion="0.0">
+            <state line="307" column="41" selection-start="8504" selection-end="8504" vertical-scroll-proportion="0.5019531">
               <folding />
             </state>
           </provider>
@@ -112,7 +110,7 @@
       <file leaf-file-name="Asteroid.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ex6/models/Asteroid.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="68" column="63" selection-start="1770" selection-end="1770" vertical-scroll-proportion="0.0">
+            <state line="50" column="30" selection-start="1364" selection-end="1377" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -124,33 +122,6 @@
         <entry file="jar://$PROJECT_DIR$/lib/jogl.jar!/javax/media/opengl/Threading.class">
           <provider selected="true" editor-type-id="text-editor">
             <state line="25" column="0" selection-start="945" selection-end="945" vertical-scroll-proportion="-14.4">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="IRenderable.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ex6/models/IRenderable.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="35" selection-start="244" selection-end="244" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ISphericalObstacle.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ex6/models/ISphericalObstacle.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="29" selection-start="514" selection-end="514" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Mesh.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ex6/models/Mesh.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="13" selection-start="383" selection-end="383" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -174,11 +145,14 @@
         <option value="$PROJECT_DIR$/src/ex6/models/Vec.java" />
         <option value="$PROJECT_DIR$/src/ex6/models/IRenderable.java" />
         <option value="$PROJECT_DIR$/src/ex6/Textures.java" />
-        <option value="$PROJECT_DIR$/src/ex6/models/Spaceship.java" />
         <option value="$PROJECT_DIR$/src/ex6/GameLogic.java" />
-        <option value="$PROJECT_DIR$/src/ex6/Viewer.java" />
         <option value="$PROJECT_DIR$/src/ex6/App.java" />
+        <option value="$PROJECT_DIR$/src/ex6/models/Spaceship.java" />
+        <option value="$PROJECT_DIR$/jad/src/ex6/models/Meteorite.java" />
+        <option value="$PROJECT_DIR$/jad/src/ex6/models/Spaceship.java" />
         <option value="$PROJECT_DIR$/src/ex6/models/Asteroid.java" />
+        <option value="$PROJECT_DIR$/src/ex6/Viewer.java" />
+        <option value="$PROJECT_DIR$/jad/src/ex6/Viewer.java" />
       </list>
     </option>
   </component>
@@ -546,7 +520,7 @@
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32958803" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39950064" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5780275" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -627,18 +601,6 @@
         <state line="168" column="0" selection-start="8489" selection-end="8489" vertical-scroll-proportion="0.33333334" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ex6/models/Vec.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="26" selection-start="69" selection-end="69" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ex6/models/Mesh.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="13" selection-start="383" selection-end="383" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ex6/Textures.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="9" column="0" selection-start="194" selection-end="194" vertical-scroll-proportion="0.0">
@@ -658,13 +620,6 @@
     <entry file="file://$PROJECT_DIR$/src/ex6/models/ISphericalObstacle.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="13" column="29" selection-start="514" selection-end="514" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ex6/models/Spaceship.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="73" column="16" selection-start="2201" selection-end="2201" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -699,21 +654,61 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/ex6/models/Vec.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="26" selection-start="69" selection-end="69" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ex6/models/Mesh.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="13" selection-start="383" selection-end="383" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jad/src/ex6/models/Meteorite.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="43" column="37" selection-start="1614" selection-end="1614" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jad/src/ex6/models/Spaceship.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="191" column="36" selection-start="8291" selection-end="8291" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/ex6/models/Asteroid.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="68" column="63" selection-start="1770" selection-end="1770" vertical-scroll-proportion="0.0">
+        <state line="50" column="30" selection-start="1364" selection-end="1377" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/jad/src/ex6/Viewer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="136" column="29" selection-start="6294" selection-end="6296" vertical-scroll-proportion="0.3326316">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/ex6/Viewer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="249" column="40" selection-start="8461" selection-end="8461" vertical-scroll-proportion="0.4004193">
+        <state line="142" column="41" selection-start="5649" selection-end="5665" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ex6/models/Spaceship.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="307" column="41" selection-start="8504" selection-end="8504" vertical-scroll-proportion="0.5019531">
+          <folding />
         </state>
       </provider>
     </entry>

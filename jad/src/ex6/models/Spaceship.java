@@ -58,9 +58,9 @@
 /*  63 */     gl.glRotated(180.0D, 0.0D, 1.0D, 0.0D);
 /*  64 */     gl.glTranslated(0.0D, -0.3D, 0.0D);
 /*     */ 
-/*  66 */     gl.glMaterialfv(1032, 4610, new float[] { 2.0F, 1.3F, 0.7F, 1.0F }, 0);
+/*  66 */     gl.glMaterialfv(1032, GL.GL_SPECULAR, new float[] { 2.0F, 1.3F, 0.7F, 1.0F }, 0);
 /*  67 */     gl.glMaterialfv(1032, 5633, new float[] { 100.0F, 200.0F, 300.0F, 1.0F }, 0);
-/*  68 */     gl.glMaterialfv(1032, 4608, new float[] { 0.05F, 0.05F, 0.05F, 1.0F }, 0);
+/*  68 */     gl.glMaterialfv(1032, GL.GL_AMBIENT, new float[] { 0.05F, 0.05F, 0.05F, 1.0F }, 0);
 /*     */ 
 /*  70 */     drawBody(gl);
 /*     */ 
@@ -84,18 +84,18 @@
 /*  89 */     drawWing(gl);
 /*  90 */     gl.glPopMatrix();
 /*     */ 
-/*  92 */     gl.glMaterialfv(1032, 4610, new float[] { 0.0F, 0.0F, 0.0F, 1.0F }, 0);
+/*  92 */     gl.glMaterialfv(1032, GL.GL_SPECULAR, new float[] { 0.0F, 0.0F, 0.0F, 1.0F }, 0);
 /*     */ 
 /*  94 */     gl.glPopMatrix();
 /*     */   }
 /*     */ 
 /*     */   private void drawBody(GL gl) {
 /*  98 */     gl.glMaterialfv(1032, 5632, new float[] { 0.0F, 0.0F, 0.0F, 1.0F }, 0);
-/*  99 */     gl.glMaterialfv(1032, 4609, new float[] { 0.8F, 0.8F, 1.0F, 1.0F }, 0);
+/*  99 */     gl.glMaterialfv(1032, GL.GL_DIFFUSE, new float[] { 0.8F, 0.8F, 1.0F, 1.0F }, 0);
 /*     */ 
 /* 101 */     this.body.draw(gl);
 /*     */ 
-/* 103 */     gl.glMaterialfv(1032, 4609, new float[] { 1.0F, 1.0F, 0.4F, 1.0F }, 0);
+/* 103 */     gl.glMaterialfv(1032, GL.GL_DIFFUSE, new float[] { 1.0F, 1.0F, 0.4F, 1.0F }, 0);
 /*     */ 
 /* 106 */     gl.glPushMatrix();
 /* 107 */     gl.glTranslated(0.0D, 0.3D, -0.7D);
@@ -115,7 +115,7 @@
 /* 121 */     gl.glPopMatrix();
 /* 122 */     drawEngine(gl);
 /* 123 */     gl.glMaterialfv(1032, 5632, new float[] { 0.0F, 0.0F, 0.0F, 1.0F }, 0);
-/* 124 */     gl.glMaterialfv(1032, 4609, new float[] { 0.3F, 0.3F, 0.3F, 1.0F }, 0);
+/* 124 */     gl.glMaterialfv(1032, GL.GL_DIFFUSE, new float[] { 0.3F, 0.3F, 0.3F, 1.0F }, 0);
 /*     */ 
 /* 126 */     gl.glPushMatrix();
 /* 127 */     gl.glTranslated(0.0D, 0.4D, 0.3D);
@@ -135,20 +135,20 @@
 /* 141 */     float length = 0.7F;
 /* 142 */     int slices = 20;
 /* 143 */     gl.glMaterialfv(1032, 5632, new float[] { 0.0F, 0.0F, 0.0F, 1.0F }, 0);
-/* 144 */     gl.glMaterialfv(1032, 4609, new float[] { 0.3F, 0.3F, 0.3F, 1.0F }, 0);
+/* 144 */     gl.glMaterialfv(1032, GL.GL_DIFFUSE, new float[] { 0.3F, 0.3F, 0.3F, 1.0F }, 0);
 /* 145 */     this.glu.gluCylinder(this.quad, 0.1000000014901161D, 0.1500000059604645D, 0.699999988079071D, 20, 10);
 /*     */ 
 /* 147 */     float[] specular = new float[4];
-/* 148 */     gl.glGetMaterialfv(1028, 4610, specular, 0);
-/* 149 */     gl.glMaterialfv(1032, 4610, new float[] { 0.0F, 0.0F, 0.0F, 1.0F }, 0);
+/* 148 */     gl.glGetMaterialfv(1028, GL.GL_SPECULAR, specular, 0);
+/* 149 */     gl.glMaterialfv(1032, GL.GL_SPECULAR, new float[] { 0.0F, 0.0F, 0.0F, 1.0F }, 0);
 /* 150 */     gl.glPushMatrix();
 /* 151 */     gl.glRotatef(180.0F, 0.0F, 1.0F, 0.0F);
-/* 152 */     gl.glMaterialfv(1032, 4609, new float[] { 0.1F, 0.3F, 0.3F, 1.0F }, 0);
+/* 152 */     gl.glMaterialfv(1032, GL.GL_DIFFUSE, new float[] { 0.1F, 0.3F, 0.3F, 1.0F }, 0);
 /* 153 */     this.glu.gluDisk(this.quad, 0.0D, 0.1000000014901161D, 20, 4);
 /* 154 */     gl.glPopMatrix();
 /* 155 */     gl.glPushMatrix();
 /* 156 */     gl.glTranslatef(0.0F, 0.0F, 0.7F);
-/* 157 */     gl.glMaterialfv(1032, 4609, new float[] { 0.0F, 0.0F, 0.0F, 1.0F }, 0);
+/* 157 */     gl.glMaterialfv(1032, GL.GL_DIFFUSE, new float[] { 0.0F, 0.0F, 0.0F, 1.0F }, 0);
 /* 158 */     this.glu.gluQuadricTexture(this.quad, true);
 /*     */ 
 /* 160 */     this.texEngine.bind();
@@ -168,7 +168,7 @@
 /* 174 */     this.glu.gluQuadricTexture(this.quad, false);
 /* 175 */     gl.glMaterialfv(1032, 5632, new float[] { 0.0F, 0.0F, 0.0F, 1.0F }, 0);
 /* 176 */     gl.glPopMatrix();
-/* 177 */     gl.glMaterialfv(1032, 4610, specular, 0);
+/* 177 */     gl.glMaterialfv(1032, GL.GL_SPECULAR, specular, 0);
 /*     */   }
 /*     */ 
 /*     */   private void drawGun(GL gl) {
@@ -176,23 +176,23 @@
 /* 182 */     float length = 0.7F;
 /* 183 */     int slices = 10;
 /* 184 */     gl.glMaterialfv(1032, 5632, new float[] { 0.0F, 0.0F, 0.0F, 1.0F }, 0);
-/* 185 */     gl.glMaterialfv(1032, 4609, new float[] { 0.7F, 0.7F, 0.0F, 1.0F }, 0);
+/* 185 */     gl.glMaterialfv(1032, GL.GL_DIFFUSE, new float[] { 0.7F, 0.7F, 0.0F, 1.0F }, 0);
 /* 186 */     this.glu.gluCylinder(this.quad, 0.02999999932944775D, 0.02999999932944775D, 0.699999988079071D, 10, 6);
 /*     */ 
 /* 188 */     float[] specular = new float[4];
-/* 189 */     gl.glGetMaterialfv(1028, 4610, specular, 0);
-/* 190 */     gl.glMaterialfv(1032, 4610, new float[] { 0.0F, 0.0F, 0.0F, 1.0F }, 0);
+/* 189 */     gl.glGetMaterialfv(1028, GL.GL_SPECULAR, specular, 0);
+/* 190 */     gl.glMaterialfv(1032, GL.GL_SPECULAR, new float[] { 0.0F, 0.0F, 0.0F, 1.0F }, 0);
 /* 191 */     gl.glPushMatrix();
 /* 192 */     gl.glRotatef(180.0F, 0.0F, 1.0F, 0.0F);
-/* 193 */     gl.glMaterialfv(1032, 4609, new float[] { 0.0F, 0.0F, 0.0F, 1.0F }, 0);
+/* 193 */     gl.glMaterialfv(1032, GL.GL_DIFFUSE, new float[] { 0.0F, 0.0F, 0.0F, 1.0F }, 0);
 /* 194 */     this.glu.gluDisk(this.quad, 0.0D, 0.02999999932944775D, 10, 10);
 /* 195 */     gl.glPopMatrix();
 /* 196 */     gl.glPushMatrix();
 /* 197 */     gl.glTranslatef(0.0F, 0.0F, 0.7F);
-/* 198 */     gl.glMaterialfv(1032, 4609, new float[] { 0.0F, 0.0F, 0.0F, 1.0F }, 0);
+/* 198 */     gl.glMaterialfv(1032, GL.GL_DIFFUSE, new float[] { 0.0F, 0.0F, 0.0F, 1.0F }, 0);
 /* 199 */     this.glu.gluDisk(this.quad, 0.0D, 0.02999999932944775D, 10, 10);
 /* 200 */     gl.glPopMatrix();
-/* 201 */     gl.glMaterialfv(1032, 4610, specular, 0);
+/* 201 */     gl.glMaterialfv(1032, GL.GL_SPECULAR, specular, 0);
 /*     */   }
 /*     */ 
 /*     */   public String toString()

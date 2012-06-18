@@ -59,19 +59,19 @@
 /*  69 */     GLUquadric quad = glu.gluNewQuadric();
 /*  70 */     glu.gluQuadricTexture(quad, true);
 /*     */ 
-/*  73 */     gl.glLightfv(16384, 4609, new float[] { 1.0F, 1.0F, 1.0F, 1.0F }, 0);
-/*  74 */     gl.glLightfv(16384, 4608, new float[] { 0.0F, 0.0F, 0.0F, 0.0F }, 0);
-/*  75 */     gl.glLightfv(16384, 4610, new float[] { 0.0F, 0.0F, 0.0F, 0.0F }, 0);
+/*  73 */     gl.glLightfv(16384, GL.GL_DIFFUSE, new float[] { 1.0F, 1.0F, 1.0F, 1.0F }, 0);
+/*  74 */     gl.glLightfv(16384, GL.GL_AMBIENT, new float[] { 0.0F, 0.0F, 0.0F, 0.0F }, 0);
+/*  75 */     gl.glLightfv(16384, GL.GL_SPECULAR, new float[] { 0.0F, 0.0F, 0.0F, 0.0F }, 0);
 /*  76 */     gl.glLightfv(16384, 4611, new float[] { 0.0F, 0.0F, 0.0F, 1.0F }, 0);
 /*     */ 
-/*  78 */     gl.glLightfv(16385, 4609, new float[] { 0.7F, 0.7F, 0.7F, 1.0F }, 0);
-/*  79 */     gl.glLightfv(16385, 4608, new float[] { 1.0F, 1.0F, 1.0F, 1.0F }, 0);
-/*  80 */     gl.glLightfv(16385, 4610, new float[] { 1.0F, 1.0F, 1.0F, 1.0F }, 0);
-/*  81 */     gl.glLightfv(16385, 4611, new float[] { 3.0F, 10.0F, -10.0F, 1.0F }, 0);
+/*  78 */     gl.glLightfv(GL.GL_LIGHT1, GL.GL_DIFFUSE, new float[] { 0.7F, 0.7F, 0.7F, 1.0F }, 0);
+/*  79 */     gl.glLightfv(GL.GL_LIGHT1, GL.GL_AMBIENT, new float[] { 1.0F, 1.0F, 1.0F, 1.0F }, 0);
+/*  80 */     gl.glLightfv(GL.GL_LIGHT1, GL.GL_SPECULAR, new float[] { 1.0F, 1.0F, 1.0F, 1.0F }, 0);
+/*  81 */     gl.glLightfv(GL.GL_LIGHT1, 4611, new float[] { 3.0F, 10.0F, -10.0F, 1.0F }, 0);
 /*     */ 
-/*  83 */     gl.glLightfv(16386, 4609, new float[] { 1.0F, 1.0F, 1.0F, 1.0F }, 0);
-/*  84 */     gl.glLightfv(16386, 4608, new float[] { 1.0F, 1.0F, 1.0F, 1.0F }, 0);
-/*  85 */     gl.glLightfv(16386, 4610, new float[] { 0.0F, 0.0F, 0.0F, 1.0F }, 0);
+/*  83 */     gl.glLightfv(16386, GL.GL_DIFFUSE, new float[] { 1.0F, 1.0F, 1.0F, 1.0F }, 0);
+/*  84 */     gl.glLightfv(16386, GL.GL_AMBIENT, new float[] { 1.0F, 1.0F, 1.0F, 1.0F }, 0);
+/*  85 */     gl.glLightfv(16386, GL.GL_SPECULAR, new float[] { 0.0F, 0.0F, 0.0F, 1.0F }, 0);
 /*  86 */     gl.glLightfv(16386, 4611, new float[] { 5.0F, 10.0F, -10.0F, 1.0F }, 0);
 /*     */ 
 /*  89 */     gl.glEnable(16384);
@@ -79,8 +79,8 @@
 /*  91 */     gl.glPushMatrix();
 /*  92 */     Textures.starsTexture.bind();
 /*  93 */     Textures.starsTexture.enable();
-/*  94 */     gl.glMaterialfv(1032, 4609, new float[] { 1.0F, 1.0F, 1.0F, 1.0F }, 0);
-/*  95 */     gl.glMaterialfv(1032, 4608, new float[] { 0.0F, 0.0F, 0.0F, 0.2F }, 0);
+/*  94 */     gl.glMaterialfv(1032, GL.GL_DIFFUSE, new float[] { 1.0F, 1.0F, 1.0F, 1.0F }, 0);
+/*  95 */     gl.glMaterialfv(1032, GL.GL_AMBIENT, new float[] { 0.0F, 0.0F, 0.0F, 0.2F }, 0);
 /*  96 */     gl.glRotated(1.333333333333333D * this.game.getAngle(), 0.0D, 0.0D, 1.0D);
 /*  97 */     gl.glRotated(this.game.getAngle(), 0.0D, 1.0D, 0.0D);
 /*  98 */     gl.glRotated(90.0D, 1.0D, 0.0D, 0.0D);
@@ -94,12 +94,12 @@
 /*     */ 
 /* 109 */     if (this.isShowShip) {
 /* 110 */       gl.glPushMatrix();
-/* 111 */       gl.glEnable(16385);
+/* 111 */       gl.glEnable(GL.GL_LIGHT1);
 /* 112 */       gl.glRotated(-1.0D * this.game.getAngle(), 0.0D, 0.0D, 1.0D);
 /* 113 */       gl.glRotated(90.0D, 0.0D, 1.0D, 0.0D);
 /* 114 */       gl.glRotated(-90.0D, 1.0D, 0.0D, 0.0D);
 /* 115 */       this.spaceship.render(gl);
-/* 116 */       gl.glDisable(16385);
+/* 116 */       gl.glDisable(GL.GL_LIGHT1);
 /* 117 */       gl.glPopMatrix();
 /*     */     }
 /*     */ 
@@ -114,7 +114,7 @@
 /* 130 */       Meteorite meteor = (Meteorite)iter.next();
 /* 131 */       meteor.render(gl);
 /*     */     }
-/* 133 */     gl.glMaterialfv(1032, 4608, new float[] { 0.0F, 0.0F, 0.0F, 0.2F }, 0);
+/* 133 */     gl.glMaterialfv(1032, GL.GL_AMBIENT, new float[] { 0.0F, 0.0F, 0.0F, 0.2F }, 0);
 /* 134 */     gl.glPopMatrix();
 /* 135 */     gl.glDisable(2884);
 /* 136 */     gl.glDepthMask(true);
@@ -133,8 +133,8 @@
 /* 151 */       gl.glPointSize(3.0F);
 /* 152 */       gl.glRotated(0.5D * this.game.getAngle(), 0.0D, 0.0D, 1.0D);
 /* 153 */       gl.glRotated(this.game.getAngle(), 0.0D, 1.0D, 0.0D);
-/* 154 */       gl.glDisable(2929);
-/* 155 */       gl.glDisable(2896);
+/* 154 */       gl.glDisable(GL.GL_DEPTH_TEST);
+/* 155 */       gl.glDisable(GL.GL_LIGHTING);
 /* 156 */       gl.glBegin(1);
 /* 157 */       gl.glColor3d(1.0D, 1.0D, 0.0D);
 /* 158 */       gl.glVertex3d(this.game.collisionMeteor.center().x, this.game.collisionMeteor.center().y, this.game.collisionMeteor.center().z);
@@ -144,15 +144,15 @@
 /* 162 */       gl.glColor3d(1.0D, 0.0D, 0.0D);
 /* 163 */       gl.glVertex3d(this.game.collisionPoint.x, this.game.collisionPoint.y, this.game.collisionPoint.z);
 /* 164 */       gl.glEnd();
-/* 165 */       gl.glEnable(2929);
-/* 166 */       gl.glEnable(2896);
+/* 165 */       gl.glEnable(GL.GL_DEPTH_TEST);
+/* 166 */       gl.glEnable(GL.GL_LIGHTING);
 /* 167 */       gl.glPopMatrix();
 /*     */     }
 /*     */ 
 /* 171 */     gl.glDisable(16386);
 /*     */ 
-/* 174 */     gl.glDisable(2929);
-/* 175 */     gl.glDisable(2896);
+/* 174 */     gl.glDisable(GL.GL_DEPTH_TEST);
+/* 175 */     gl.glDisable(GL.GL_LIGHTING);
 /* 176 */     GLUT glut = new GLUT();
 /* 177 */     int lh = glut.glutBitmapWidth(7, 'H') + 5;
 /* 178 */     gl.glColor3d(0.0D, 0.5D, 0.0D);
@@ -179,8 +179,8 @@
 /* 199 */       gl.glWindowPos2d(5.0D, 5 + 3 * lh);
 /* 200 */       glut.glutBitmapString(8, "PAUSED");
 /*     */     }
-/* 202 */     gl.glEnable(2896);
-/* 203 */     gl.glEnable(2929);
+/* 202 */     gl.glEnable(GL.GL_LIGHTING);
+/* 203 */     gl.glEnable(GL.GL_DEPTH_TEST);
 /*     */ 
 /* 205 */     glu.gluDeleteQuadric(quad);
 /*     */   }
@@ -199,10 +199,10 @@
 /*     */ 
 /* 221 */     gl.glLightModeli(2898, 1);
 /* 222 */     gl.glEnable(2977);
-/* 223 */     gl.glEnable(2929);
+/* 223 */     gl.glEnable(GL.GL_DEPTH_TEST);
 /* 224 */     gl.glDepthFunc(515);
 /*     */ 
-/* 227 */     gl.glEnable(2896);
+/* 227 */     gl.glEnable(GL.GL_LIGHTING);
 /*     */ 
 /* 229 */     Textures.load();
 /*     */ 

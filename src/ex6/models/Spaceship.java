@@ -40,7 +40,7 @@ public class Spaceship implements ISphericalObstacle {
 
 	// spherical properties
 	private Vec center = new Vec();
-	private double radius = 0;
+	private double radius = 1;
 
 
 	public Spaceship() {

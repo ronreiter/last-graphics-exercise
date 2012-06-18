@@ -30,22 +30,17 @@ public class Viewer implements GLEventListener {
 	private boolean isReshape = false; //Should the OpenGL projection matrix be updated?
 
 	private Spaceship spaceship;
-	private Asteroid testAsteroid;
+	private Asteroid spaceshipMark;
 	
 	public Viewer(GameLogic game, Spaceship spaceship) {
 		//TIP you might want to get the spaceship here from outside
 		this.game = game;
 		this.spaceship = spaceship;
-		this.testAsteroid = new Asteroid(spaceship.center(), spaceship.radius());
+		this.spaceshipMark = new Asteroid(spaceship.center(), spaceship.radius());
 	}
 	
 	@Override
 	public void display(GLAutoDrawable drawable) {
-		if (isReshape) {
-			setProjection(drawable, drawable.getWidth(), drawable.getHeight());
-			isReshape = false;
-		}
-
 		game.update();
 
 		//TODO render everything: sky, spaceship (maybe with marker), asteroids, collision line, info text.
@@ -71,28 +66,28 @@ public class Viewer implements GLEventListener {
 		GLUquadric quad = glu.gluNewQuadric();
 		glu.gluQuadricTexture(quad, true);
 
-		gl.glLightfv(16384, 4609, new float[] { 1.0F, 1.0F, 1.0F, 1.0F }, 0);
-		gl.glLightfv(16384, 4608, new float[] { 0.0F, 0.0F, 0.0F, 0.0F }, 0);
-		gl.glLightfv(16384, 4610, new float[] { 0.0F, 0.0F, 0.0F, 0.0F }, 0);
-		gl.glLightfv(16384, 4611, new float[] { 0.0F, 0.0F, 0.0F, 1.0F }, 0);
+		gl.glLightfv(GL.GL_LIGHT0, GL.GL_DIFFUSE, new float[] { 1.0F, 1.0F, 1.0F, 1.0F }, 0);
+		gl.glLightfv(GL.GL_LIGHT0, GL.GL_AMBIENT, new float[] { 0.0F, 0.0F, 0.0F, 0.0F }, 0);
+		gl.glLightfv(GL.GL_LIGHT0, GL.GL_SPECULAR, new float[] { 0.0F, 0.0F, 0.0F, 0.0F }, 0);
+		gl.glLightfv(GL.GL_LIGHT0, GL.GL_POSITION, new float[] { 0.0F, 0.0F, 0.0F, 1.0F }, 0);
 
-		gl.glLightfv(16385, 4609, new float[] { 0.7F, 0.7F, 0.7F, 1.0F }, 0);
-		gl.glLightfv(16385, 4608, new float[] { 1.0F, 1.0F, 1.0F, 1.0F }, 0);
-		gl.glLightfv(16385, 4610, new float[] { 1.0F, 1.0F, 1.0F, 1.0F }, 0);
-		gl.glLightfv(16385, 4611, new float[] { 3.0F, 10.0F, -10.0F, 1.0F }, 0);
+		gl.glLightfv(GL.GL_LIGHT1, GL.GL_DIFFUSE, new float[] { 0.7F, 0.7F, 0.7F, 1.0F }, 0);
+		gl.glLightfv(GL.GL_LIGHT1, GL.GL_AMBIENT, new float[] { 1.0F, 1.0F, 1.0F, 1.0F }, 0);
+		gl.glLightfv(GL.GL_LIGHT1, GL.GL_SPECULAR, new float[] { 1.0F, 1.0F, 1.0F, 1.0F }, 0);
+		gl.glLightfv(GL.GL_LIGHT1, GL.GL_POSITION, new float[] { 3.0F, 10.0F, -10.0F, 1.0F }, 0);
 
-		gl.glLightfv(16386, 4609, new float[] { 1.0F, 1.0F, 1.0F, 1.0F }, 0);
-		gl.glLightfv(16386, 4608, new float[] { 1.0F, 1.0F, 1.0F, 1.0F }, 0);
-		gl.glLightfv(16386, 4610, new float[] { 0.0F, 0.0F, 0.0F, 1.0F }, 0);
-		gl.glLightfv(16386, 4611, new float[] { 5.0F, 10.0F, -10.0F, 1.0F }, 0);
+		gl.glLightfv(GL.GL_LIGHT2, GL.GL_DIFFUSE, new float[] { 1.0F, 1.0F, 1.0F, 1.0F }, 0);
+		gl.glLightfv(GL.GL_LIGHT2, GL.GL_AMBIENT, new float[] { 1.0F, 1.0F, 1.0F, 1.0F }, 0);
+		gl.glLightfv(GL.GL_LIGHT2, GL.GL_SPECULAR, new float[] { 0.0F, 0.0F, 0.0F, 1.0F }, 0);
+		gl.glLightfv(GL.GL_LIGHT2, GL.GL_POSITION, new float[] { 5.0F, 10.0F, -10.0F, 1.0F }, 0);
 
-		gl.glEnable(16384);
+		gl.glEnable(GL.GL_LIGHT0);
 		gl.glDepthMask(false);
 		gl.glPushMatrix();
 		Textures.starsTexture.bind();
 		Textures.starsTexture.enable();
-		gl.glMaterialfv(1032, 4609, new float[]{1.0F, 1.0F, 1.0F, 1.0F}, 0);
-		gl.glMaterialfv(1032, 4608, new float[]{0.0F, 0.0F, 0.0F, 0.2F}, 0);
+		gl.glMaterialfv(1032, GL.GL_DIFFUSE, new float[]{1.0F, 1.0F, 1.0F, 1.0F}, 0);
+		gl.glMaterialfv(1032, GL.GL_AMBIENT, new float[]{0.0F, 0.0F, 0.0F, 0.2F}, 0);
 		gl.glRotated(1.333333333333333D * this.game.getAngle(), 0.0D, 0.0D, 1.0D);
 		gl.glRotated(this.game.getAngle(), 0.0D, 1.0D, 0.0D);
 		gl.glRotated(90.0D, 1.0D, 0.0D, 0.0D);
@@ -100,18 +95,18 @@ public class Viewer implements GLEventListener {
 		Textures.starsTexture.disable();
 		gl.glPopMatrix();
 		gl.glDepthMask(true);
-		gl.glDisable(16384);
+		gl.glDisable(GL.GL_LIGHT0);
 
 		gl.glTranslated(0.0D, -1.3D, -8.0D);
 
 		if (this.isShowShip) {
 			gl.glPushMatrix();
-			gl.glEnable(16385);
+			gl.glEnable(GL.GL_LIGHT1);
 			gl.glRotated(-1.0D * this.game.getAngle(), 0.0D, 0.0D, 1.0D);
 			gl.glRotated(90.0D, 0.0D, 1.0D, 0.0D);
 			gl.glRotated(-90.0D, 1.0D, 0.0D, 0.0D);
 			this.spaceship.render(gl);
-			gl.glDisable(16385);
+			gl.glDisable(GL.GL_LIGHT1);
 			gl.glPopMatrix();
 		}
 
@@ -126,7 +121,7 @@ public class Viewer implements GLEventListener {
 			Asteroid asteroid = (Asteroid)iter.next();
 			asteroid.render(gl);
 		}
-		gl.glMaterialfv(1032, 4608, new float[] { 0.0F, 0.0F, 0.0F, 0.2F }, 0);
+		gl.glMaterialfv(1032, GL.GL_AMBIENT, new float[] { 0.0F, 0.0F, 0.0F, 0.2F }, 0);
 		gl.glPopMatrix();
 		gl.glDisable(2884);
 		gl.glDepthMask(true);
@@ -136,7 +131,7 @@ public class Viewer implements GLEventListener {
 			gl.glRotated(-1.0D * this.game.getAngle(), 0.0D, 0.0D, 1.0D);
 			gl.glRotated(90.0D, 0.0D, 1.0D, 0.0D);
 			gl.glRotated(-90.0D, 1.0D, 0.0D, 0.0D);
-			this.testAsteroid.render(gl);
+			this.spaceshipMark.render(gl);
 			gl.glPopMatrix();
 		}
 
@@ -145,8 +140,8 @@ public class Viewer implements GLEventListener {
 			gl.glPointSize(3.0F);
 			gl.glRotated(0.5D * this.game.getAngle(), 0.0D, 0.0D, 1.0D);
 			gl.glRotated(this.game.getAngle(), 0.0D, 1.0D, 0.0D);
-			gl.glDisable(2929);
-			gl.glDisable(2896);
+			gl.glDisable(GL.GL_DEPTH_TEST);
+			gl.glDisable(GL.GL_LIGHTING);
 			gl.glBegin(1);
 			gl.glColor3d(1.0D, 1.0D, 0.0D);
 			gl.glVertex3d(this.game.collisionMeteor.center().x, this.game.collisionMeteor.center().y, this.game.collisionMeteor.center().z);
@@ -156,15 +151,15 @@ public class Viewer implements GLEventListener {
 			gl.glColor3d(1.0D, 0.0D, 0.0D);
 			gl.glVertex3d(this.game.collisionPoint.x, this.game.collisionPoint.y, this.game.collisionPoint.z);
 			gl.glEnd();
-			gl.glEnable(2929);
-			gl.glEnable(2896);
+			gl.glEnable(GL.GL_DEPTH_TEST);
+			gl.glEnable(GL.GL_LIGHTING);
 			gl.glPopMatrix();
 		}
 
 		gl.glDisable(16386);
 
-		gl.glDisable(2929);
-		gl.glDisable(2896);
+		gl.glDisable(GL.GL_DEPTH_TEST);
+		gl.glDisable(GL.GL_LIGHTING);
 		GLUT glut = new GLUT();
 		int lh = glut.glutBitmapWidth(7, 'H') + 5;
 		gl.glColor3d(0.0D, 0.5D, 0.0D);
@@ -191,8 +186,8 @@ public class Viewer implements GLEventListener {
 			gl.glWindowPos2d(5.0D, 5 + 3 * lh);
 			glut.glutBitmapString(8, "PAUSED");
 		}
-		gl.glEnable(2896);
-		gl.glEnable(2929);
+		gl.glEnable(GL.GL_LIGHTING);
+		gl.glEnable(GL.GL_DEPTH_TEST);
 
 		glu.gluDeleteQuadric(quad);
 	}
@@ -215,10 +210,10 @@ public class Viewer implements GLEventListener {
 
 		gl.glLightModeli(2898, 1);
 		gl.glEnable(2977);
-		gl.glEnable(2929);
+		gl.glEnable(GL.GL_DEPTH_TEST);
 		gl.glDepthFunc(515);
 
-		gl.glEnable(2896);
+		gl.glEnable(GL.GL_LIGHTING);
 
 		Textures.load();
 
@@ -241,11 +236,11 @@ public class Viewer implements GLEventListener {
 		double newScreenHeight;
 
 		if (height < width) {
-			aspectRatio = height / width;
+			aspectRatio = Double.valueOf(height) / Double.valueOf(width);
 			newScreenWidth = 20.0D;
 			newScreenHeight = 20.0D * aspectRatio;
 		} else {
-			aspectRatio = width / height;
+			aspectRatio = Double.valueOf(width) / Double.valueOf(height);
 			newScreenWidth = 20.0D * aspectRatio;
 			newScreenHeight = 20.0D;
 		}
