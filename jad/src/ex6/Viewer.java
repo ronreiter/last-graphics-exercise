@@ -51,36 +51,36 @@
 /*  60 */     GL gl = drawable.getGL();
 /*  61 */     this.game.update();
 /*     */ 
-/*  64 */     gl.glClear(16640);
-/*  65 */     gl.glMatrixMode(5888);
+/*  64 */     gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
+/*  65 */     gl.glMatrixMode(GL.GL_MODELVIEW);
 /*  66 */     gl.glLoadIdentity();
 /*     */ 
 /*  68 */     GLU glu = new GLU();
 /*  69 */     GLUquadric quad = glu.gluNewQuadric();
 /*  70 */     glu.gluQuadricTexture(quad, true);
 /*     */ 
-/*  73 */     gl.glLightfv(16384, GL.GL_DIFFUSE, new float[] { 1.0F, 1.0F, 1.0F, 1.0F }, 0);
-/*  74 */     gl.glLightfv(16384, GL.GL_AMBIENT, new float[] { 0.0F, 0.0F, 0.0F, 0.0F }, 0);
-/*  75 */     gl.glLightfv(16384, GL.GL_SPECULAR, new float[] { 0.0F, 0.0F, 0.0F, 0.0F }, 0);
-/*  76 */     gl.glLightfv(16384, 4611, new float[] { 0.0F, 0.0F, 0.0F, 1.0F }, 0);
+/*  73 */     gl.glLightfv(GL.GL_LIGHT0, GL.GL_DIFFUSE, new float[] { 1.0F, 1.0F, 1.0F, 1.0F }, 0);
+/*  74 */     gl.glLightfv(GL.GL_LIGHT0, GL.GL_AMBIENT, new float[] { 0.0F, 0.0F, 0.0F, 0.0F }, 0);
+/*  75 */     gl.glLightfv(GL.GL_LIGHT0, GL.GL_SPECULAR, new float[] { 0.0F, 0.0F, 0.0F, 0.0F }, 0);
+/*  76 */     gl.glLightfv(GL.GL_LIGHT0, GL.GL_POSITION, new float[] { 0.0F, 0.0F, 0.0F, 1.0F }, 0);
 /*     */ 
 /*  78 */     gl.glLightfv(GL.GL_LIGHT1, GL.GL_DIFFUSE, new float[] { 0.7F, 0.7F, 0.7F, 1.0F }, 0);
 /*  79 */     gl.glLightfv(GL.GL_LIGHT1, GL.GL_AMBIENT, new float[] { 1.0F, 1.0F, 1.0F, 1.0F }, 0);
 /*  80 */     gl.glLightfv(GL.GL_LIGHT1, GL.GL_SPECULAR, new float[] { 1.0F, 1.0F, 1.0F, 1.0F }, 0);
-/*  81 */     gl.glLightfv(GL.GL_LIGHT1, 4611, new float[] { 3.0F, 10.0F, -10.0F, 1.0F }, 0);
+/*  81 */     gl.glLightfv(GL.GL_LIGHT1, GL.GL_POSITION, new float[] { 3.0F, 10.0F, -10.0F, 1.0F }, 0);
 /*     */ 
-/*  83 */     gl.glLightfv(16386, GL.GL_DIFFUSE, new float[] { 1.0F, 1.0F, 1.0F, 1.0F }, 0);
-/*  84 */     gl.glLightfv(16386, GL.GL_AMBIENT, new float[] { 1.0F, 1.0F, 1.0F, 1.0F }, 0);
-/*  85 */     gl.glLightfv(16386, GL.GL_SPECULAR, new float[] { 0.0F, 0.0F, 0.0F, 1.0F }, 0);
-/*  86 */     gl.glLightfv(16386, 4611, new float[] { 5.0F, 10.0F, -10.0F, 1.0F }, 0);
+/*  83 */     gl.glLightfv(GL.GL_LIGHT2, GL.GL_DIFFUSE, new float[] { 1.0F, 1.0F, 1.0F, 1.0F }, 0);
+/*  84 */     gl.glLightfv(GL.GL_LIGHT2, GL.GL_AMBIENT, new float[] { 1.0F, 1.0F, 1.0F, 1.0F }, 0);
+/*  85 */     gl.glLightfv(GL.GL_LIGHT2, GL.GL_SPECULAR, new float[] { 0.0F, 0.0F, 0.0F, 1.0F }, 0);
+/*  86 */     gl.glLightfv(GL.GL_LIGHT2, GL.GL_POSITION, new float[] { 5.0F, 10.0F, -10.0F, 1.0F }, 0);
 /*     */ 
-/*  89 */     gl.glEnable(16384);
+/*  89 */     gl.glEnable(GL.GL_LIGHT0);
 /*  90 */     gl.glDepthMask(false);
 /*  91 */     gl.glPushMatrix();
 /*  92 */     Textures.starsTexture.bind();
 /*  93 */     Textures.starsTexture.enable();
-/*  94 */     gl.glMaterialfv(1032, GL.GL_DIFFUSE, new float[] { 1.0F, 1.0F, 1.0F, 1.0F }, 0);
-/*  95 */     gl.glMaterialfv(1032, GL.GL_AMBIENT, new float[] { 0.0F, 0.0F, 0.0F, 0.2F }, 0);
+/*  94 */     gl.glMaterialfv(GL.GL_FRONT_AND_BACK, GL.GL_DIFFUSE, new float[] { 1.0F, 1.0F, 1.0F, 1.0F }, 0);
+/*  95 */     gl.glMaterialfv(GL.GL_FRONT_AND_BACK, GL.GL_AMBIENT, new float[] { 0.0F, 0.0F, 0.0F, 0.2F }, 0);
 /*  96 */     gl.glRotated(1.333333333333333D * this.game.getAngle(), 0.0D, 0.0D, 1.0D);
 /*  97 */     gl.glRotated(this.game.getAngle(), 0.0D, 1.0D, 0.0D);
 /*  98 */     gl.glRotated(90.0D, 1.0D, 0.0D, 0.0D);
@@ -88,7 +88,7 @@
 /* 100 */     Textures.starsTexture.disable();
 /* 101 */     gl.glPopMatrix();
 /* 102 */     gl.glDepthMask(true);
-/* 103 */     gl.glDisable(16384);
+/* 103 */     gl.glDisable(GL.GL_LIGHT0);
 /*     */ 
 /* 106 */     gl.glTranslated(0.0D, -1.3D, -8.0D);
 /*     */ 
@@ -103,9 +103,9 @@
 /* 117 */       gl.glPopMatrix();
 /*     */     }
 /*     */ 
-/* 122 */     gl.glEnable(16386);
+/* 122 */     gl.glEnable(GL.GL_LIGHT2);
 /* 123 */     gl.glDepthMask(false);
-/* 124 */     gl.glEnable(2884);
+/* 124 */     gl.glEnable(GL.GL_CULL_FACE);
 /* 125 */     gl.glPushMatrix();
 /* 126 */     gl.glRotated(0.5D * this.game.getAngle(), 0.0D, 0.0D, 1.0D);
 /* 127 */     gl.glRotated(this.game.getAngle(), 0.0D, 1.0D, 0.0D);
@@ -114,9 +114,9 @@
 /* 130 */       Meteorite meteor = (Meteorite)iter.next();
 /* 131 */       meteor.render(gl);
 /*     */     }
-/* 133 */     gl.glMaterialfv(1032, GL.GL_AMBIENT, new float[] { 0.0F, 0.0F, 0.0F, 0.2F }, 0);
+/* 133 */     gl.glMaterialfv(GL.GL_FRONT_AND_BACK, GL.GL_AMBIENT, new float[] { 0.0F, 0.0F, 0.0F, 0.2F }, 0);
 /* 134 */     gl.glPopMatrix();
-/* 135 */     gl.glDisable(2884);
+/* 135 */     gl.glDisable(GL.GL_CULL_FACE);
 /* 136 */     gl.glDepthMask(true);
 /*     */ 
 /* 140 */     if (this.isShipMark) {
@@ -149,7 +149,7 @@
 /* 167 */       gl.glPopMatrix();
 /*     */     }
 /*     */ 
-/* 171 */     gl.glDisable(16386);
+/* 171 */     gl.glDisable(GL.GL_LIGHT2);
 /*     */ 
 /* 174 */     gl.glDisable(GL.GL_DEPTH_TEST);
 /* 175 */     gl.glDisable(GL.GL_LIGHTING);
@@ -206,9 +206,9 @@
 /*     */ 
 /* 229 */     Textures.load();
 /*     */ 
-/* 232 */     gl.glTexParameteri(3553, 10240, 9728);
-/* 233 */     gl.glTexParameteri(3553, 10241, 9984);
-/* 234 */     gl.glTexEnvf(8960, 8704, 8448.0F);
+/* 232 */     gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MAG_FILTER, GL.GL_NEAREST);
+/* 233 */     gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER, GL.GL_NEAREST_MIPMAP_NEAREST);
+/* 234 */     gl.glTexEnvf(GL.GL_TEXTURE_ENV, GL.GL_TEXTURE_ENV_MODE, GL.GL_MODULATE);
 /*     */ 
 /* 237 */     this.ani = new FPSAnimator(30, true);
 /* 238 */     this.ani.add(drawable);
@@ -232,7 +232,7 @@
 /* 257 */       newScreenHeight = 20.0D;
 /*     */     }
 /*     */ 
-/* 261 */     gl.glMatrixMode(5889);
+/* 261 */     gl.glMatrixMode(GL.GL_PROJECTION);
 /* 262 */     gl.glLoadIdentity();
 /*     */ 
 /* 265 */     if (this.isOrthographic) {
@@ -243,7 +243,7 @@
 /* 270 */       GLU glu = new GLU();
 /* 271 */       glu.gluPerspective(60.0D, width / height, 1.0D, 20000.0D);
 /*     */     }
-/* 273 */     gl.glMatrixMode(5888);
+/* 273 */     gl.glMatrixMode(GL.GL_MODELVIEW);
 /*     */   }
 /*     */ 
 /*     */   public void startAnimation() {

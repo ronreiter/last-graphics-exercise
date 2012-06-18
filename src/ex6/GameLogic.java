@@ -108,7 +108,7 @@ public class GameLogic {
 	        addAsteroid();
 	    }
 
-	    double angleRad = this.angle / 180.0D * 3.141592653589793D;
+	    double angleRad = this.angle / 180.0D * Math.PI;
 	    for (Asteroid asteroid : this.asteroids) {
 	        Vec direction = new Vec(-this.meteorSpeed * Math.sin(angleRad), 0.0D, this.meteorSpeed * Math.cos(angleRad));
 
@@ -152,7 +152,7 @@ public class GameLogic {
 	    {
 	        int i = 0; if (i < 20) {
 	            double r = 0.5D + this.rand.nextDouble();
-	            double angleRad = 3.0D * (this.rand.nextDouble() - 0.5D) * 60.0D / 180.0D * 3.141592653589793D;
+	            double angleRad = 3.0D * (this.rand.nextDouble() - 0.5D) * 60.0D / 180.0D * Math.PI;
 	            double x = this.initialViewerDist * Math.sin(angleRad);
 	            double y = this.rand.nextDouble() - 0.5D;
 	            double z = -this.initialViewerDist * Math.cos(angleRad);

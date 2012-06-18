@@ -61,10 +61,19 @@
       <file leaf-file-name="Viewer.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ex6/Viewer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="142" column="41" selection-start="5649" selection-end="5665" vertical-scroll-proportion="0.0">
+            <state line="277" column="34" selection-start="9908" selection-end="9908" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GameLogic.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/ex6/GameLogic.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="168" column="41" selection-start="5204" selection-end="5204" vertical-scroll-proportion="-1.2265625">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -98,10 +107,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Spaceship.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Spaceship.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ex6/models/Spaceship.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="307" column="41" selection-start="8504" selection-end="8504" vertical-scroll-proportion="0.5019531">
+            <state line="297" column="34" selection-start="8200" selection-end="8200" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -110,19 +119,10 @@
       <file leaf-file-name="Asteroid.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ex6/models/Asteroid.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="50" column="30" selection-start="1364" selection-end="1377" vertical-scroll-proportion="0.0">
+            <state line="49" column="44" selection-start="1275" selection-end="1295" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Threading.class" pinned="false" current="false" current-in-tab="false">
-        <entry file="jar://$PROJECT_DIR$/lib/jogl.jar!/javax/media/opengl/Threading.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="0" selection-start="945" selection-end="945" vertical-scroll-proportion="-14.4">
-              <folding />
             </state>
           </provider>
         </entry>
@@ -145,7 +145,6 @@
         <option value="$PROJECT_DIR$/src/ex6/models/Vec.java" />
         <option value="$PROJECT_DIR$/src/ex6/models/IRenderable.java" />
         <option value="$PROJECT_DIR$/src/ex6/Textures.java" />
-        <option value="$PROJECT_DIR$/src/ex6/GameLogic.java" />
         <option value="$PROJECT_DIR$/src/ex6/App.java" />
         <option value="$PROJECT_DIR$/src/ex6/models/Spaceship.java" />
         <option value="$PROJECT_DIR$/jad/src/ex6/models/Meteorite.java" />
@@ -153,6 +152,8 @@
         <option value="$PROJECT_DIR$/src/ex6/models/Asteroid.java" />
         <option value="$PROJECT_DIR$/src/ex6/Viewer.java" />
         <option value="$PROJECT_DIR$/jad/src/ex6/Viewer.java" />
+        <option value="$PROJECT_DIR$/jad/src/ex6/GameLogic.java" />
+        <option value="$PROJECT_DIR$/src/ex6/GameLogic.java" />
       </list>
     </option>
   </component>
@@ -596,11 +597,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar:///System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/classes.jar!/java/lang/Class.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="168" column="0" selection-start="8489" selection-end="8489" vertical-scroll-proportion="0.33333334" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ex6/Textures.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="9" column="0" selection-start="194" selection-end="194" vertical-scroll-proportion="0.0">
@@ -624,44 +620,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ex6/GameLogic.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="182" column="20" selection-start="5733" selection-end="5733" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/jad/src/ex6/App.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="24" column="14" selection-start="844" selection-end="844" vertical-scroll-proportion="0.3319672">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ex6/App.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="0" selection-start="676" selection-end="676" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/jogl.jar!/javax/media/opengl/Threading.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="0" selection-start="945" selection-end="945" vertical-scroll-proportion="-14.4">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ex6/models/Vec.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="26" selection-start="69" selection-end="69" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ex6/models/Mesh.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="13" selection-start="383" selection-end="383" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -680,9 +641,39 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/ex6/models/Spaceship.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="297" column="34" selection-start="8200" selection-end="8200" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ex6/App.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="0" selection-start="676" selection-end="676" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ex6/models/Mesh.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="13" selection-start="383" selection-end="383" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/jogl.jar!/javax/media/opengl/Threading.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="0" selection-start="945" selection-end="945" vertical-scroll-proportion="0.7392197">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/ex6/models/Asteroid.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="30" selection-start="1364" selection-end="1377" vertical-scroll-proportion="0.0">
+        <state line="49" column="44" selection-start="1275" selection-end="1295" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -691,23 +682,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/jad/src/ex6/Viewer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="136" column="29" selection-start="6294" selection-end="6296" vertical-scroll-proportion="0.3326316">
+        <state line="235" column="34" selection-start="10734" selection-end="10734" vertical-scroll-proportion="0.36217305">
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/jad/src/ex6/GameLogic.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="124" column="94" selection-start="4632" selection-end="4636" vertical-scroll-proportion="0.33203125">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ex6/models/Vec.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="26" selection-start="69" selection-end="69" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/ex6/Viewer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="142" column="41" selection-start="5649" selection-end="5665" vertical-scroll-proportion="0.0">
+        <state line="277" column="34" selection-start="9908" selection-end="9908" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ex6/models/Spaceship.java">
+    <entry file="file://$PROJECT_DIR$/src/ex6/GameLogic.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="307" column="41" selection-start="8504" selection-end="8504" vertical-scroll-proportion="0.5019531">
+        <state line="168" column="41" selection-start="5204" selection-end="5204" vertical-scroll-proportion="-1.2265625">
           <folding />
         </state>
       </provider>

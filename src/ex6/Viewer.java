@@ -58,8 +58,8 @@ public class Viewer implements GLEventListener {
 		GL gl = drawable.getGL();
 		this.game.update();
 
-		gl.glClear(16640);
-		gl.glMatrixMode(5888);
+		gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
+		gl.glMatrixMode(GL.GL_MODELVIEW);
 		gl.glLoadIdentity();
 
 		GLU glu = new GLU();
@@ -86,9 +86,9 @@ public class Viewer implements GLEventListener {
 		gl.glPushMatrix();
 		Textures.starsTexture.bind();
 		Textures.starsTexture.enable();
-		gl.glMaterialfv(1032, GL.GL_DIFFUSE, new float[]{1.0F, 1.0F, 1.0F, 1.0F}, 0);
-		gl.glMaterialfv(1032, GL.GL_AMBIENT, new float[]{0.0F, 0.0F, 0.0F, 0.2F}, 0);
-		gl.glRotated(1.333333333333333D * this.game.getAngle(), 0.0D, 0.0D, 1.0D);
+		gl.glMaterialfv(GL.GL_FRONT_AND_BACK, GL.GL_DIFFUSE, new float[]{1.0F, 1.0F, 1.0F, 1.0F}, 0);
+		gl.glMaterialfv(GL.GL_FRONT_AND_BACK, GL.GL_AMBIENT, new float[]{0.0F, 0.0F, 0.0F, 0.2F}, 0);
+		gl.glRotated(1.3D * this.game.getAngle(), 0.0D, 0.0D, 1.0D);
 		gl.glRotated(this.game.getAngle(), 0.0D, 1.0D, 0.0D);
 		gl.glRotated(90.0D, 1.0D, 0.0D, 0.0D);
 		glu.gluSphere(quad, 100.0D, 32, 32);
@@ -110,9 +110,9 @@ public class Viewer implements GLEventListener {
 			gl.glPopMatrix();
 		}
 
-		gl.glEnable(16386);
+		gl.glEnable(GL.GL_LIGHT2);
 		gl.glDepthMask(false);
-		gl.glEnable(2884);
+		gl.glEnable(GL.GL_CULL_FACE);
 		gl.glPushMatrix();
 		gl.glRotated(0.5D * this.game.getAngle(), 0.0D, 0.0D, 1.0D);
 		gl.glRotated(this.game.getAngle(), 0.0D, 1.0D, 0.0D);
@@ -121,9 +121,9 @@ public class Viewer implements GLEventListener {
 			Asteroid asteroid = (Asteroid)iter.next();
 			asteroid.render(gl);
 		}
-		gl.glMaterialfv(1032, GL.GL_AMBIENT, new float[] { 0.0F, 0.0F, 0.0F, 0.2F }, 0);
+		gl.glMaterialfv(GL.GL_FRONT_AND_BACK, GL.GL_AMBIENT, new float[] { 0.0F, 0.0F, 0.0F, 0.2F }, 0);
 		gl.glPopMatrix();
-		gl.glDisable(2884);
+		gl.glDisable(GL.GL_CULL_FACE);
 		gl.glDepthMask(true);
 
 		if (this.isShipMark) {
@@ -142,12 +142,12 @@ public class Viewer implements GLEventListener {
 			gl.glRotated(this.game.getAngle(), 0.0D, 1.0D, 0.0D);
 			gl.glDisable(GL.GL_DEPTH_TEST);
 			gl.glDisable(GL.GL_LIGHTING);
-			gl.glBegin(1);
+			gl.glBegin(GL.GL_LINES);
 			gl.glColor3d(1.0D, 1.0D, 0.0D);
 			gl.glVertex3d(this.game.collisionMeteor.center().x, this.game.collisionMeteor.center().y, this.game.collisionMeteor.center().z);
 			gl.glVertex3d(this.spaceship.center().x, this.spaceship.center().y, this.spaceship.center().z);
 			gl.glEnd();
-			gl.glBegin(0);
+			gl.glBegin(GL.GL_POINTS);
 			gl.glColor3d(1.0D, 0.0D, 0.0D);
 			gl.glVertex3d(this.game.collisionPoint.x, this.game.collisionPoint.y, this.game.collisionPoint.z);
 			gl.glEnd();
@@ -156,7 +156,7 @@ public class Viewer implements GLEventListener {
 			gl.glPopMatrix();
 		}
 
-		gl.glDisable(16386);
+		gl.glDisable(GL.GL_LIGHT2);
 
 		gl.glDisable(GL.GL_DEPTH_TEST);
 		gl.glDisable(GL.GL_LIGHTING);
@@ -205,21 +205,21 @@ public class Viewer implements GLEventListener {
 		drawable.setGL(new DebugGL(drawable.getGL()));
 		GL gl = drawable.getGL();
 
-		gl.glEnable(3042);
-		gl.glBlendFunc(770, 771);
+		gl.glEnable(GL.GL_BLEND);
+		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
 
-		gl.glLightModeli(2898, 1);
-		gl.glEnable(2977);
+		gl.glLightModeli(GL.GL_LIGHT_MODEL_TWO_SIDE, GL.GL_TRUE);
+		gl.glEnable(GL.GL_NORMALIZE);
 		gl.glEnable(GL.GL_DEPTH_TEST);
-		gl.glDepthFunc(515);
+		gl.glDepthFunc(GL.GL_LEQUAL);
 
 		gl.glEnable(GL.GL_LIGHTING);
 
 		Textures.load();
 
-		gl.glTexParameteri(3553, 10240, 9728);
-		gl.glTexParameteri(3553, 10241, 9984);
-		gl.glTexEnvf(8960, 8704, 8448.0F);
+		gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MAG_FILTER, GL.GL_NEAREST);
+		gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER, GL.GL_NEAREST_MIPMAP_NEAREST);
+		gl.glTexEnvf(GL.GL_TEXTURE_ENV, GL.GL_TEXTURE_ENV_MODE, GL.GL_MODULATE);
 
 		this.ani = new FPSAnimator(30, true);
 		this.ani.add(drawable);
@@ -245,7 +245,7 @@ public class Viewer implements GLEventListener {
 			newScreenHeight = 20.0D;
 		}
 
-		gl.glMatrixMode(5889);
+		gl.glMatrixMode(GL.GL_PROJECTION);
 		gl.glLoadIdentity();
 
 		if (this.isOrthographic) {
@@ -256,7 +256,7 @@ public class Viewer implements GLEventListener {
 			GLU glu = new GLU();
 			glu.gluPerspective(60.0D, width / height, 1.0D, 20000.0D);
 		}
-		gl.glMatrixMode(5888);
+		gl.glMatrixMode(GL.GL_MODELVIEW);
 	}
 	
 	private void setProjection(GLAutoDrawable drawable, int width, int height) {

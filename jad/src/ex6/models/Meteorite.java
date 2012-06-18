@@ -37,12 +37,12 @@
 /*    */   public void render(GL gl)
 /*    */   {
 /* 44 */     if (!this.isChecker) {
-/* 45 */       gl.glMaterialfv(1032, GL.GL_DIFFUSE, this.colorDiffuse, 0);
-/* 46 */       gl.glMaterialfv(1032, GL.GL_AMBIENT, this.colorAmbient, 0);
+/* 45 */       gl.glMaterialfv(GL.GL_FRONT_AND_BACK, GL.GL_DIFFUSE, this.colorDiffuse, 0);
+/* 46 */       gl.glMaterialfv(GL.GL_FRONT_AND_BACK, GL.GL_AMBIENT, this.colorAmbient, 0);
 /* 47 */       this.tex = Textures.asteroidTexture;
 /*    */     } else {
-/* 49 */       gl.glMaterialfv(1032, GL.GL_DIFFUSE, new float[] { 0.5F, 0.5F, 0.5F, 0.2F }, 0);
-/* 50 */       gl.glMaterialfv(1032, GL.GL_AMBIENT, new float[] { 0.5F, 0.5F, 0.5F, 0.2F }, 0);
+/* 49 */       gl.glMaterialfv(GL.GL_FRONT_AND_BACK, GL.GL_DIFFUSE, new float[] { 0.5F, 0.5F, 0.5F, 0.2F }, 0);
+/* 50 */       gl.glMaterialfv(GL.GL_FRONT_AND_BACK, GL.GL_AMBIENT, new float[] { 0.5F, 0.5F, 0.5F, 0.2F }, 0);
 /* 51 */       this.tex = Textures.texChecker;
 /*    */     }
 /* 53 */     GLU glu = new GLU();

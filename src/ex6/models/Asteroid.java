@@ -47,8 +47,8 @@ public class Asteroid implements IRenderable, ISphericalObstacle {
 	public void render(GL gl) {
 		Texture texture = Textures.asteroidTexture;
 
-		gl.glMaterialfv(1032, GL.GL_DIFFUSE, new float[] { 0.5F, 0.5F, 0.5F, 0.2F }, 0);
-		gl.glMaterialfv(1032, GL.GL_AMBIENT, new float[] { 0.5F, 0.5F, 0.5F, 0.2F }, 0);
+		gl.glMaterialfv(GL.GL_FRONT_AND_BACK, GL.GL_DIFFUSE, new float[] { 0.5F, 0.5F, 0.5F, 0.2F }, 0);
+		gl.glMaterialfv(GL.GL_FRONT_AND_BACK, GL.GL_AMBIENT, new float[] { 0.5F, 0.5F, 0.5F, 0.2F }, 0);
 
 		GLU glu = new GLU();
 		GLUquadric quad = glu.gluNewQuadric();
