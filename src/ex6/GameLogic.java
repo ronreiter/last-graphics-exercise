@@ -81,14 +81,14 @@ public class GameLogic {
 	
 	// Align the spaceship to go forward
 	private void alignForward(){	
-		if(this.angle > 1.0E-010D)
+		if(this.angle > 1) {
 			this.angle -= 1;
-		else if(this.angle < -1.0E-010D)
+		} else if(this.angle < -1) {
 			this.angle += 1;
-		
-		// We should center the angle
-		if ((this.angle < -1.0E-010D) || (this.angle > 1.0E-010D))
+		} else {
 			this.angle = 0;
+		}
+
 	}
 	
 
